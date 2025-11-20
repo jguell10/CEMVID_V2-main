@@ -4,6 +4,7 @@ const routes = [
   {
     path: '/',component: () => import('pages/Login.vue')
   },
+
   {
     
     path: '/',
@@ -14,7 +15,11 @@ const routes = [
       // {path: '', component: () => import('pages/Login.vue')},
       { path: 'index', component: () => import('pages/Index.vue'),meta:{requiresAuth:true} },
       { path: 'listado', component: () => import('pages/ListaVehiculo.vue'),meta:{requiresAuth:true} },
+      { path: 'listado2', component: () => import('pages/ListaVehiculo2.vue'),meta:{requiresAuth:true} },
       { path: 'marca', component: () => import('pages/Marca.vue'),meta:{requiresAuth:true} },
+      { path: 'listar-desintegraciones', component: () => import('pages/ListaDesintegraciones.vue'), meta:{ requiresAuth:true } },
+      { path: 'listar-sedes', component: () => import('pages/ListaSedes.vue'), meta:{ requiresAuth:true } },
+      
       
     ]
   },
@@ -26,8 +31,6 @@ const routes = [
     component: () => import('pages/Error404.vue')
   }
 ];
-
-
 
 export default routes
 

@@ -111,193 +111,192 @@
         ></q-table>
       </div>
     </q-card>
-
     <q-card style="width: 100%" v-show="components_2">
-  <q-item
-    clickable
-    v-ripple
-    class="rounded-borders"
-    :class="$q.dark.isActive ? 'bg-grey-9 text-white' : 'bg-grey-2'"
-  >
-    <q-item-section>
-      <q-item-label class="text-h6"> MODULO 2 </q-item-label>
-    </q-item-section>
+      <q-item
+        clickable
+        v-ripple
+        class="rounded-borders"
+        :class="$q.dark.isActive ? 'bg-grey-9 text-white' : 'bg-grey-2'"
+      >
+        <q-item-section>
+          <q-item-label class="text-h6"> DESINTEGRACIONES </q-item-label>
+        </q-item-section>
 
-    <q-btn
-      color="purple"
-      glossy
-      icon="arrow_back"
-      @click="
-        components_2 = false;
-        components = true;
-        paso = 1;
-      "
-    />
-  </q-item>
+        <q-btn
+          color="purple"
+          glossy
+          icon="arrow_back"
+          @click="
+            components_2 = false;
+            components = true;
+          "
+        ></q-btn>
+      </q-item>
 
-  <!-- PASO 1: DATOS DEL VEHÍCULO -->
-  <q-card-section v-if="paso === 1">
-    <div class="q-pa-md example-row-mix-and-match">
-      <div class="row" style="text-align: center">
-        <div class="col-4">
-          <q-card class="my-card">
+      <div class="q-pa-md example-row-mix-and-match" v-if="!mostrarMultimedia">
+        <div class="row" style="text-align: center">
+          <div class="col-4">
+            <q-card class="my-card">
+              <q-card-section>
+                <q-btn
+                  target="_blank"
+                  glossy
+                  style="background-color: #f76ff7"
+                  >{{ new Date().toLocaleString() }}</q-btn
+                >
+              </q-card-section>
+
+              <q-card-section>
+                <q-field
+                  standout="bg-purple-3 text-white"
+                  label="Numero de documento"
+                  stack-label
+                >
+                  <template v-slot:control>
+                    <div class="self-center full-width no-outline" tabindex="0">
+                      {{ this.numero_documento }}
+                    </div>
+                  </template>
+                </q-field>
+              </q-card-section>
+
+              <q-card-section>
+                <q-field
+                  standout="bg-purple-3 text-white"
+                  label="Placa del vehiculo"
+                  stack-label
+                >
+                  <template v-slot:control>
+                    <div class="self-center full-width no-outline" tabindex="0">
+                      {{ this.placa.toUpperCase() }}
+                    </div>
+                  </template>
+                </q-field>
+              </q-card-section>
+
+              <q-card-section>
+                <q-input
+                  standout="bg-purple-3 text-white"
+                  label="Número de ejes"
+                  stack-label
+                  v-model="numero_ejes"
+                />
+              </q-card-section>
+
+              <!-- Línea -->
+              <q-card-section>
+                <q-input
+                  standout="bg-purple-3 text-white"
+                  label="Línea"
+                  stack-label
+                  v-model="linea"
+                />
+              </q-card-section>
+
+
+
+
+
+
+            </q-card>
+          </div>
+
+          <div class="col-4">
             <q-card-section>
-              <q-btn target="_blank" glossy style="background-color: #f76ff7">
-                {{ new Date().toLocaleString() }}
-              </q-btn>
+              <q-img
+                src="../assets/Cemdiv_logo_2.jpg"
+                style="width: 50%; height: auto; align-items: center"
+              ></q-img>
             </q-card-section>
+          </div>
 
-            <q-card-section>
-              <q-field
-                standout="bg-purple-3 text-white"
-                label="Numero de documento"
-                stack-label
-              >
-                <template v-slot:control>
-                  <div class="self-center full-width no-outline" tabindex="0">
-                    {{ numero_documento }}
-                  </div>
-                </template>
-              </q-field>
-            </q-card-section>
+          <div class="col-4">
+            <q-card class="my-card">
+              <q-card-section>
+                <q-btn target="_blank" glossy style="background-color: #f76ff7"
+                  >{{ latitud }} - {{ longitud }}</q-btn
+                >
+              </q-card-section>
+              <q-card-section>
+                <q-field
+                  standout="bg-purple-3 text-white"
+                  label="Numero de motor"
+                  stack-label
+                >
+                  <template v-slot:control>
+                    <div class="self-center full-width no-outline" tabindex="0">
+                      {{ this.numero_motor }}
+                    </div>
+                  </template>
+                </q-field>
+              </q-card-section>
 
-            <q-card-section>
-              <q-field
-                standout="bg-purple-3 text-white"
-                label="Placa del vehiculo"
-                stack-label
-              >
-                <template v-slot:control>
-                  <div class="self-center full-width no-outline" tabindex="0">
-                    {{ placa.toUpperCase() }}
-                  </div>
-                </template>
-              </q-field>
-            </q-card-section>
+              <!-- Tipo de servicio -->
+              <q-card-section>
+                <q-select
+                  standout="bg-purple-3 text-white"
+                  label="Tipo de servicio"
+                  stack-label
+                  v-model="tipo_servicio"
+                  :options="[
+                    'PARTICULAR',
+                    'PÚBLICO',
+                    'OFICIAL',
+                    'ESPECIAL',
+                    'DIPLOMÁTICO'
+                  ]"
+                />
+              </q-card-section>
 
-            <q-card-section>
-              <q-input
-                standout="bg-purple-3 text-white"
-                label="Número de ejes"
-                stack-label
-                v-model="numero_ejes"
-              />
-            </q-card-section>
+              <q-card-section>
+                <q-field
+                  standout="bg-purple-3 text-white"
+                  label="Numero de chasis"
+                  stack-label
+                >
+                  <template v-slot:control>
+                    <div class="self-center full-width no-outline" tabindex="0">
+                      {{ this.numero_chasis }}
+                    </div>
+                  </template>
+                </q-field>
+              </q-card-section>
 
-            <q-card-section>
-              <q-input
-                standout="bg-purple-3 text-white"
-                label="Línea"
-                stack-label
-                v-model="linea"
-              />
-            </q-card-section>
-          </q-card>
-        </div>
-
-        <div class="col-4">
-          <q-card-section>
-            <q-img
-              src="../assets/Cemdiv_logo_2.jpg"
-              style="width: 50%; height: auto; align-items: center"
-            />
-          </q-card-section>
-        </div>
-
-        <div class="col-4">
-          <q-card class="my-card">
-            <q-card-section>
-              <q-btn target="_blank" glossy style="background-color: #f76ff7">
-                {{ latitud }} - {{ longitud }}
-              </q-btn>
-            </q-card-section>
-
-            <q-card-section>
-              <q-field
-                standout="bg-purple-3 text-white"
-                label="Numero de motor"
-                stack-label
-              >
-                <template v-slot:control>
-                  <div class="self-center full-width no-outline" tabindex="0">
-                    {{ numero_motor }}
-                  </div>
-                </template>
-              </q-field>
-            </q-card-section>
-
-            <q-card-section>
-              <q-select
-                standout="bg-purple-3 text-white"
-                label="Tipo de servicio"
-                stack-label
-                v-model="tipo_servicio"
-                :options="[
-                  'PARTICULAR',
-                  'PÚBLICO',
-                  'OFICIAL',
-                  'ESPECIAL',
-                  'DIPLOMÁTICO'
-                ]"
-              />
-            </q-card-section>
-
-            <q-card-section>
-              <q-field
-                standout="bg-purple-3 text-white"
-                label="Numero de chasis"
-                stack-label
-              >
-                <template v-slot:control>
-                  <div class="self-center full-width no-outline" tabindex="0">
-                    {{ numero_chasis }}
-                  </div>
-                </template>
-              </q-field>
-            </q-card-section>
-
-            <q-card-section>
-              <q-input
-                standout="bg-purple-3 text-white"
-                label="Siniestro"
-                stack-label
-                v-model="siniestro"
-              />
-            </q-card-section>
-          </q-card>
+              <q-card-section>
+                <q-input
+                  standout="bg-purple-3 text-white"
+                  label="Siniestro"
+                  stack-label
+                  v-model="siniestro"
+                />
+              </q-card-section>
+            </q-card>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- NAVEGACIÓN PASO 1 -->
-    <div class="row justify-end q-mt-xl q-pa-lg">
-      <q-btn
-        color="purple"
-        icon-right="arrow_forward"
-        label="SIGUIENTE"
-        @click="paso = 2"
-      />
-    </div>
-  </q-card-section>
+      <div
+        class="q-pa-md row items-start q-gutter-md"
+        style="align-content: center"
+      ></div>
 
-  <!-- PASO 2: MULTIMEDIA -->
-  <q-card-section v-else-if="paso === 2">
-    <div class="q-pa-md">
-      <div class="q-col-gutter-md row items-start">
-        <div
-          v-for="ruta in rutas"
-          :key="ruta.ruta"
-          class="col-4"
-        >
-          <!-- IMAGEN -->
-          <div v-if="!ruta.ruta.toLowerCase().endsWith('.mp4')">
+      
+      <div class="q-pa-md" v-if="mostrarMultimedia">
+  <div class="q-col-gutter-md row items-start">
+    
+    <div
+      v-for="ruta in rutas" :key="ruta.ruta">
+      
+    
+
+          <!-- IMÁGENES posiciones 0,1,2 y 4,5,6,7 -->
+          <div v-if="ruta.ruta.toLowerCase().includes('Foto_motor_desintegrado')">
             <q-img
               :src="'https://soportescemvid.ibingcode.com/' + ruta.ruta"
               :ratio="16 / 9"
               style="border: 3px solid purple; border-radius: 10px"
             />
 
-            <!-- Nombre del archivo -->
             <q-item-label style="text-align: center; font-weight: 600">
               <q-chip dense>
                 <q-avatar
@@ -309,30 +308,15 @@
               </q-chip>
               {{ ruta.ruta.split('/').pop().split('.')[0] }}
             </q-item-label>
-
-            <!-- CHULITO VERDE -->
-            <div style="text-align: center; margin-top: 4px;">
-              <q-chip
-                color="green-5"
-                text-color="white"
-                icon="check_circle"
-                dense
-                class="glossy"
-              >
-                Archivo verificado
-              </q-chip>
-            </div>
           </div>
 
-          <!-- VIDEO -->
-          <div v-else>
+          <div v-else-if="ruta.ruta.toLowerCase().includes('video_motor_desintegrado')">
             <q-video
               :src="'https://soportescemvid.ibingcode.com/' + ruta.ruta"
               :ratio="16 / 9"
               style="border: 3px solid purple; border-radius: 10px"
             />
 
-            <!-- Nombre del archivo -->
             <q-item-label style="text-align: center; font-weight: 600">
               <q-chip dense>
                 <q-avatar
@@ -344,201 +328,32 @@
               </q-chip>
               {{ ruta.ruta.split('/').pop().split('.')[0] }}
             </q-item-label>
-
-            <!-- CHULITO VERDE -->
-            <div style="text-align: center; margin-top: 4px;">
-              <q-chip
-                color="green-5"
-                text-color="white"
-                icon="check_circle"
-                dense
-                class="glossy"
-              >
-                Archivo verificado
-              </q-chip>
-            </div>
           </div>
+
         </div>
       </div>
     </div>
 
-    <!-- NAVEGACIÓN PASO 2 -->
-    <div class="row justify-between q-mt-xl q-pa-lg" style="width: 100%;">
-      <q-btn
-        color="purple"
-        icon="arrow_back"
-        label="ATRÁS"
-        @click="paso = 1"
-      />
-      <q-btn
-        color="purple"
-        icon-right="arrow_forward"
-        label="SIGUIENTE"
-        @click="paso = 3"
-      />
-    </div>
-    </q-card-section>
-
-    <!-- PASO 3: BOTONERA FINAL -->
-
-        <!-- PASO 3: BOTONERA FINAL -->
-      <q-card-section v-if="paso === 3">
-
-        <div class="q-pa-md example-row-mix-and-match">
-        <div class="row" style="text-align: center;">
-        <div class="col-4">
-        
-
-            <q-card-section>
-                <q-uploader
-                  label="Contratos activos"
-                  style="width: 100%;"
-                  flat
-                  bordered
-                  color="purple"
-                  text-color="white"
-                  no-thumbnails
-                  url="https://cemvid.ibingcode.com/public/subir_documentos_desintegradora"
-                  field-name="iso_9001"
-                  :form-fields="[
-                    { name: 'id_desintegradora', value: id_desintegradora },
-                    { name: 'placa', value: placa }
-                  ]"
-                />                
-              </q-card-section>
-
-              <q-card-section>
-                <q-uploader
-                  label="Certificado revisión técnica"
-                  style="width: 100%;"
-                  flat
-                  bordered
-                  color="purple"
-                  text-color="white"
-                  no-thumbnails
-                  url="https://cemvid.ibingcode.com/public/subir_documentos_desintegradora"
-                  field-name="iso_9001"
-                  :form-fields="[
-                    { name: 'id_desintegradora', value: id_desintegradora },
-                    { name: 'placa', value: placa }
-                  ]"
-                />
-                <q-card-section>
-                  <q-input
-                    standout="bg-purple-3 text-white"
-                    label="Fecha de emision"
-                    stack-label
-                    v-model="fecha_vencimiento_iso"
-                    type="date"
-                  />
-                </q-card-section>                
-              </q-card-section>
-              
-
-              
-              </div>
-
-              <div class="col-4">
-
-                <q-card-section>
-                <q-uploader
-                  label="Certificado de tradición"
-                  style="width: 100%;"
-                  flat
-                  bordered
-                  color="purple"
-                  text-color="white"
-                  no-thumbnails
-                  url="https://cemvid.ibingcode.com/public/subir_documentos_desintegradora"
-                  field-name="iso_9001"
-                  :form-fields="[
-                    { name: 'id_desintegradora', value: id_desintegradora },
-                    { name: 'placa', value: placa }
-                  ]"
-                />                
-              </q-card-section>
-
-              </div>
-
-
-
-              <div class="col-4">
-
-              <q-card-section>
-                <q-uploader
-                  label="Carta de Autorización"
-                  style="width: 100%;"
-                  flat
-                  bordered
-                  color="purple"
-                  text-color="white"
-                  no-thumbnails
-                  url="https://cemvid.ibingcode.com/public/subir_documentos_desintegradora"
-                  field-name="iso_9001"
-                  :form-fields="[
-                    { name: 'id_desintegradora', value: id_desintegradora },
-                    { name: 'placa', value: placa }
-                  ]"
-                />                
-              </q-card-section>
-
-              <q-card-section>
-                <q-uploader
-                  label="Licencia de transito"
-                  style="width: 100%;"
-                  flat
-                  bordered
-                  color="purple"
-                  text-color="white"
-                  no-thumbnails
-                  url="https://cemvid.ibingcode.com/public/subir_documentos_desintegradora"
-                  field-name="iso_9001"
-                  :form-fields="[
-                    { name: 'id_desintegradora', value: id_desintegradora },
-                    { name: 'placa', value: placa }
-                  ]"
-                />                
-              </q-card-section>
-
-
-
-
-
-            <!-- GENERAR ACTA -->
-            
-          </div>
-
-          
-        </div>
-            <div class="row justify-center">
-                <q-btn>
-                  <img
-                    src="../assets/descargar_archivo.png"
-                    @click="f_generardocumento()"
-                    style="width: 50px; height: 50px"
-                  />
-                  <q-tooltip transition-show="rotate" transition-hide="rotate">
-                    GENERAR ACTA
-                  </q-tooltip>
-                </q-btn>
-              </div>
-        </div>
-
-        <!-- NAVEGACIÓN PASO 3 -->
-        <div class="row justify-between q-mt-xl q-pa-lg" style="width: 100%;">
-          <q-btn
-            color="purple"
-            icon="arrow_back"
-            label="ATRÁS"
-            @click="paso = 2"
-          />
-        </div>
-      </q-card-section>
-
+    <q-card-section v-if="!mostrarMultimedia">
   
-      </q-card> 
+</q-card-section>
+
         <q-card-section v-if="mostrarMultimedia">
-          
+          <div class="row justify-center q-gutter-md">
+            <q-btn
+              color="purple"
+              glossy
+              icon="arrow_back"
+              label="Atrás"
+              @click="volverAtras"
+            />
+            <q-btn
+              style="background-color:#e241e2;"
+              icon-right="arrow_forward"
+              label="Siguiente"
+              @click="otraAccionSiLaHay"
+            />
+          </div>
         </q-card-section>
 
 
@@ -548,7 +363,16 @@
       <q-card-section>
         <div class="row">
           <div class="col">
-            
+            <q-btn>
+              <img
+                src="../assets/load_nube.png"
+                @click="toolbar = true;opcion=this.cod_resolucion"
+                style="width: 50px; height: 50px"
+              />
+              <q-tooltip transition-show="rotate" transition-hide="rotate">
+                SUBIR ARCHIVOS
+              </q-tooltip>
+            </q-btn>
 
             <q-btn v-show="components_6">
               <img
@@ -571,7 +395,16 @@
                 GENERAR ACTA
               </q-tooltip>
             </q-btn>
-            
+            <q-btn>
+              <img
+                src="../assets/Reporte_excel.png"
+                @click="f_mensaje_test()"
+                style="width: 50px; height: 50px"
+              />
+              <q-tooltip transition-show="rotate" transition-hide="rotate">
+                REPORTE EXCEL
+              </q-tooltip>
+            </q-btn>
           </div>
           <div class="col">
             <q-btn v-show="components_4">
@@ -615,24 +448,1326 @@
 
            </div> -->
 
-           <q-card-section v-if="paso === 1">
-        <!-- aquí va todo lo que hoy es tu primera vista: datos, formulario, etc. -->
-
-            
-          </q-card-section>
-
-          <q-card-section v-if="paso === 2">
-            <!-- aquí todo tu contenido de multimedia -->
-            <!-- grid de imágenes / videos + botones ATRÁS y SIGUIENTE -->
-
-            
-          </q-card-section>
+          <div class="col-2">
+            <q-btn
+              style="background-color:#e241e2;"
+              icon-right="arrow_forward"
+              label="Siguiente1"
+              @click="irASiguientePaso"
+            />
+          </div>
         </div>
       </q-card-section>
        <!-- </div>
        </div> -->
+    </q-card>
 
-    
+    <q-dialog v-model="toolbar">
+      <q-card style="width: 800px; max-width: 85vw">
+        <q-toolbar>
+          <q-avatar>
+            <img src="../assets/documentos.png" />
+          </q-avatar>
+          <q-toolbar-title
+            ><span class="text-weight-bold">CEMDIV</span>
+            SOPORTES <br><span class="text-weight-thin">RESOLUCION {{opcion}}</span>
+            </q-toolbar-title
+          >
+          
+          
+
+          
+          <q-btn flat round dense icon="close" v-close-popup />
+        </q-toolbar>
+        <!-- <q-card-section>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum repellendus sit voluptate voluptas eveniet porro. Rerum blanditiis perferendis totam, ea at omnis vel numquam exercitationem aut, natus minima, porro labore.
+        </q-card-section> -->
+        <div class="q-pa-md" style="max-width: 600px">
+          <!-- <q-file filled bottom-slots v-model="files_0" label="CERTIFICADO DE REVISION TECNICA SIJIN" counter>
+        <template v-slot:prepend>
+          <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+        </template>
+        <template v-slot:append>
+          <q-icon name="close" @click.stop.prevent="files_0 = null" class="cursor-pointer"></q-icon>
+        </template>
+
+        <template v-slot:hint>
+          Field hint
+        </template>
+      </q-file>-->
+    <!--RESOLUCION 7036 APODERADO|SINIESTRO-->
+      <div v-if="opcion==7036">
+          <q-file
+            filled
+            bottom-slots
+            v-model="files_0"
+            label="CERTIFICADO DE TRADICION"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_0 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint> </template>
+          </q-file>
+          <q-file
+            filled
+            bottom-slots
+            v-model="files_1"
+            label="LICENCIA DE TRANSITO"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_1 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint>  </template>
+          </q-file>
+          <q-file
+            filled
+            bottom-slots
+            v-model="files_2"
+            label="PODER AUTENTICADO"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_2 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
+          <q-card-section>     
+          <q-file filled bottom-slots v-model="files_3" label="DIJIN" counter>
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_3 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint> </template>
+          </q-file>
+
+          
+          <q-input dense filled v-model="date" mask="date" :rules="['date']" hint="Fecha expedicion DIJIN">
+            <template v-slot:append>
+              <q-icon name="event" class="cursor-pointer">
+                <q-popup-proxy
+                  cover
+                  transition-show="scale"
+                  transition-hide="scale"
+                >
+                  <q-date v-model="date1" color="purple">
+                    <div class="row items-center justify-end">
+                      <q-btn
+                        v-close-popup
+                        label="Close"
+                        color="purple"
+                        flat
+                      />
+                    </div>
+                  </q-date>
+                </q-popup-proxy>
+              </q-icon>
+            </template>
+          </q-input>
+        </q-card-section>
+          <q-file
+            filled
+            bottom-slots
+            v-model="files_4"
+            label="SINIESTRO"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_4 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>          
+          <q-file
+            filled
+            bottom-slots
+            v-model="files_5"
+            label="CEDULA APODERADO"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_5 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint>  </template>
+          </q-file>
+        </div>
+<!--RESOLUCION 7036 APODERADO-->
+        <div v-if="opcion==2">
+          <q-file
+            filled
+            bottom-slots
+            v-model="files_0"
+            label="CERTIFICADO DE TRADICION"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_0 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
+          <q-file
+            filled
+            bottom-slots
+            v-model="files_1"
+            label="LICENCIA DE TRANSITO"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_1 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
+          <q-file
+            filled
+            bottom-slots
+            v-model="files_2"
+            label="PODER AUTENTICADO"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_2 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
+          <q-card-section> 
+          <q-file filled bottom-slots v-model="files_3" label="DIJIN" counter>
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_3 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
+          <q-input dense filled v-model="date" mask="date" :rules="['date']" hint="Fecha expedicion DIJIN">
+            <template v-slot:append>
+              <q-icon name="event" class="cursor-pointer">
+                <q-popup-proxy
+                  cover
+                  transition-show="scale"
+                  transition-hide="scale"
+                >
+                  <q-date v-model="date1" color="purple">
+                    <div class="row items-center justify-end">
+                      <q-btn
+                        v-close-popup
+                        label="Close"
+                        color="purple"
+                        flat
+                      />
+                    </div>
+                  </q-date>
+                </q-popup-proxy>
+              </q-icon>
+            </template>
+          </q-input>
+        </q-card-section>     
+          <q-file
+            filled
+            bottom-slots
+            v-model="files_4"
+            label="CEDULA APODERADO"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_4 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
+        </div>
+
+        <!--RESOLUCION 7036 PROPIETARIO|SINIESTRO-->
+        <div v-if="opcion==3">
+          <q-file
+            filled
+            bottom-slots
+            v-model="files_0"
+            label="CERTIFICADO DE TRADICION"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_0 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
+          <q-file
+            filled
+            bottom-slots
+            v-model="files_1"
+            label="LICENCIA DE TRANSITO"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_1 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>  
+          <q-card-section>         
+          <q-file filled bottom-slots v-model="files_2" label="DIJIN" counter>
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_2 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
+          <q-input dense filled v-model="date" mask="date" :rules="['date']" hint="Fecha expedicion DIJIN">
+            <template v-slot:append>
+              <q-icon name="event" class="cursor-pointer">
+                <q-popup-proxy
+                  cover
+                  transition-show="scale"
+                  transition-hide="scale"
+                >
+                  <q-date v-model="date1" color="purple">
+                    <div class="row items-center justify-end">
+                      <q-btn
+                        v-close-popup
+                        label="Close"
+                        color="purple"
+                        flat
+                      />
+                    </div>
+                  </q-date>
+                </q-popup-proxy>
+              </q-icon>
+            </template>
+          </q-input>
+        </q-card-section>
+          <q-file
+            filled
+            bottom-slots
+            v-model="files_3"
+            label="SINIESTRO"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_3 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
+          <q-file
+            filled
+            bottom-slots
+            v-model="files_4"
+            label="CEDULA PROPIETARIO"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_4 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>          
+        </div>
+         <!--RESOLUCION 7036 PROPIETARIO-->
+         <div v-if="opcion==4">
+          <q-file
+            filled
+            bottom-slots
+            v-model="files_0"
+            label="CERTIFICADO DE TRADICION"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_0 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
+          <q-file
+            filled
+            bottom-slots
+            v-model="files_1"
+            label="LICENCIA DE TRANSITO"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_1 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
+          <q-card-section>           
+          <q-file filled bottom-slots v-model="files_2" label="DIJIN" counter>
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_2 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
+          <q-input dense filled v-model="date" mask="date" :rules="['date']" hint="Fecha expedicion DIJIN">
+            <template v-slot:append>
+              <q-icon name="event" class="cursor-pointer">
+                <q-popup-proxy
+                  cover
+                  transition-show="scale"
+                  transition-hide="scale"
+                >
+                  <q-date v-model="date1" color="purple">
+                    <div class="row items-center justify-end">
+                      <q-btn
+                        v-close-popup
+                        label="Close"
+                        color="purple"
+                        flat
+                      />
+                    </div>
+                  </q-date>
+                </q-popup-proxy>
+              </q-icon>
+            </template>
+          </q-input>
+        </q-card-section>          
+          <q-file
+            filled
+            bottom-slots
+            v-model="files_3"
+            label="CEDULA PROPIETARIO"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_3 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>          
+        </div>
+        <!--RESOLUCION 646 APODERADO|SINIESTRO-->
+      <div v-if="opcion=646">
+          <q-file
+            filled
+            bottom-slots
+            v-model="files_0"
+            label="CERTIFICADO SIJIN"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_0 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
+          <q-file
+            filled
+            bottom-slots
+            v-model="files_1"
+            label="CERTIFICADO DE TRADICION"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_0 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
+          <q-file
+            filled
+            bottom-slots
+            v-model="files_2"
+            label="LICENCIA DE TRANSITO"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_2 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
+          
+          <q-card-section :class="$q.dark.isActive ? 'text-white' : 'text-black'">
+        
+        <q-toggle
+          v-model="v_poder"
+          color="purple "
+          text-color="black"
+          icon="check"
+          label="APODERDO"
+          @click="f_cargar_poder()"
+        ></q-toggle>
+      </q-card-section>
+          <q-file
+            filled
+            bottom-slots
+            v-model="files_3"
+            label="PODER AUTENTICADO"
+            counter
+            v-show="components_12"
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_3 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
+          <q-card-section> 
+          <q-file filled bottom-slots v-model="files_4" label="DIJIN" counter>
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_4 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
+          <q-input dense filled v-model="date" mask="date" :rules="['date']" hint="Fecha expedicion DIJIN">
+            <template v-slot:append>
+              <q-icon name="event" class="cursor-pointer">
+                <q-popup-proxy
+                  cover
+                  transition-show="scale"
+                  transition-hide="scale"
+                >
+                  <q-date v-model="date1" color="purple">
+                    <div class="row items-center justify-end">
+                      <q-btn
+                        v-close-popup
+                        label="Close"
+                        color="purple"
+                        flat
+                      />
+                    </div>
+                  </q-date>
+                </q-popup-proxy>
+              </q-icon>
+            </template>
+          </q-input>
+        </q-card-section>
+
+         <q-card-section :class="$q.dark.isActive ? 'text-white' : 'text-black'">
+         
+        <q-toggle
+          v-model="v_siniestro"
+          color="purple "
+          text-color="black"
+          icon="check"
+          label="CARGAR SINIESTRO"
+          @click="f_cargar_siniestro()"
+        ></q-toggle>
+      </q-card-section>
+          <q-file
+            filled
+            bottom-slots
+            v-model="files_5"
+            label="SINIESTRO"
+            counter
+            v-show="components_13"
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_5 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>          
+          <q-file
+            filled
+            bottom-slots
+            v-model="files_6"
+            label="CEDULA"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_6 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
+        </div>
+<!--RESOLUCION 646 APODERADO-->
+        <div v-if="opcion==6">
+          <q-file
+            filled
+            bottom-slots
+            v-model="files_0"
+            label="CERTIFICADO DE TRADICION"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_0 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
+          <q-file
+            filled
+            bottom-slots
+            v-model="files_1"
+            label="LICENCIA DE TRANSITO"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_1 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
+          <q-file
+            filled
+            bottom-slots
+            v-model="files_2"
+            label="PODER AUTENTICADO"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_2 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
+          <q-card-section> 
+          <q-file filled bottom-slots v-model="files_3" label="DIJIN" counter>
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_3 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file> 
+          <q-input dense filled v-model="date" mask="date" :rules="['date']" hint="Fecha expedicion DIJIN">
+            <template v-slot:append>
+              <q-icon name="event" class="cursor-pointer">
+                <q-popup-proxy
+                  cover
+                  transition-show="scale"
+                  transition-hide="scale"
+                >
+                  <q-date v-model="date1" color="purple">
+                    <div class="row items-center justify-end">
+                      <q-btn
+                        v-close-popup
+                        label="Close"
+                        color="purple"
+                        flat
+                      />
+                    </div>
+                  </q-date>
+                </q-popup-proxy>
+              </q-icon>
+            </template>
+          </q-input>
+        </q-card-section>    
+          <q-file
+            filled
+            bottom-slots
+            v-model="files_4"
+            label="CEDULA APODERADO"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_4 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
+        </div>
+
+        <!--RESOLUCION 646 PROPIETARIO|SINIESTRO-->
+        <div v-if="opcion==7">
+          <q-file
+            filled
+            bottom-slots
+            v-model="files_0"
+            label="CERTIFICADO DE TRADICION"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_0 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
+          <q-file
+            filled
+            bottom-slots
+            v-model="files_1"
+            label="LICENCIA DE TRANSITO"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_1 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
+          <q-card-section>           
+          <q-file filled bottom-slots v-model="files_2" label="DIJIN" counter>
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_2 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
+          <q-input dense filled v-model="date" mask="date" :rules="['date']" hint="Fecha expedicion DIJIN">
+            <template v-slot:append>
+              <q-icon name="event" class="cursor-pointer">
+                <q-popup-proxy
+                  cover
+                  transition-show="scale"
+                  transition-hide="scale"
+                >
+                  <q-date v-model="date1" color="purple">
+                    <div class="row items-center justify-end">
+                      <q-btn
+                        v-close-popup
+                        label="Close"
+                        color="purple"
+                        flat
+                      />
+                    </div>
+                  </q-date>
+                </q-popup-proxy>
+              </q-icon>
+            </template>
+          </q-input>
+        </q-card-section>
+          <q-file
+            filled
+            bottom-slots
+            v-model="files_3"
+            label="SINIESTRO"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_3 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
+          <q-file
+            filled
+            bottom-slots
+            v-model="files_4"
+            label="CEDULA PROPIETARIO"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_4 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>          
+        </div>
+         <!--RESOLUCION 646 PROPIETARIO-->
+         <div v-if="opcion==8">
+          <q-file
+            filled
+            bottom-slots
+            v-model="files_0"
+            label="CERTIFICADO DE TRADICION"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_0 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
+          <q-file
+            filled
+            bottom-slots
+            v-model="files_1"
+            label="LICENCIA DE TRANSITO"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_1 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
+          <q-card-section>           
+          <q-file filled bottom-slots v-model="files_2" label="DIJIN" counter>
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_2 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
+          <q-input dense filled v-model="date" mask="date" :rules="['date']" hint="Fecha expedicion DIJIN">
+            <template v-slot:append>
+              <q-icon name="event" class="cursor-pointer">
+                <q-popup-proxy
+                  cover
+                  transition-show="scale"
+                  transition-hide="scale"
+                >
+                  <q-date v-model="date1" color="purple">
+                    <div class="row items-center justify-end">
+                      <q-btn
+                        v-close-popup
+                        label="Close"
+                        color="purple"
+                        flat
+                      />
+                    </div>
+                  </q-date>
+                </q-popup-proxy>
+              </q-icon>
+            </template>
+          </q-input>
+        </q-card-section>          
+          <q-file
+            filled
+            bottom-slots
+            v-model="files_3"
+            label="CEDULA PROPIETARIO"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_3 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>          
+        </div>
+        <!--RESOLUCION 1730-->
+        <div v-if="opcion==9">
+          <q-file
+            filled
+            bottom-slots
+            v-model="files_0"
+            label="RESOLUCION DE DESINTEGRACION"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_0 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+            <template v-slot:hint></template>
+          </q-file>                   
+        </div>
+        <!--RESOLUCION LEY NORMALIZACION-->
+        <div v-if="opcion==10">
+          <q-file
+            filled
+            bottom-slots
+            v-model="files_0"
+            label="CERTIFICADO DE TRADICION"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_0 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
+          <q-file
+            filled
+            bottom-slots
+            v-model="files_1"
+            label="LICENCIA DE TRANSITO"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_1 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
+          <q-file
+            filled
+            bottom-slots
+            v-model="files_2"
+            label="PODER AUTENTICADO"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_2 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
+          <q-card-section> 
+          <q-file filled bottom-slots v-model="files_3" label="DIJIN" counter>
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_3 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
+          <q-input dense filled v-model="date" mask="date" :rules="['date']" hint="Fecha expedicion DIJIN">
+            <template v-slot:append>
+              <q-icon name="event" class="cursor-pointer">
+                <q-popup-proxy
+                  cover
+                  transition-show="scale"
+                  transition-hide="scale"
+                >
+                  <q-date v-model="date1" color="purple">
+                    <div class="row items-center justify-end">
+                      <q-btn
+                        v-close-popup
+                        label="Close"
+                        color="purple"
+                        flat
+                      />
+                    </div>
+                  </q-date>
+                </q-popup-proxy>
+              </q-icon>
+            </template>
+          </q-input>
+        </q-card-section>     
+          <q-file
+            filled
+            bottom-slots
+            v-model="files_4"
+            label="CEDULA APODERADO"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_4 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
+        </div>
+        <!--RESOLUCION LEY NORMALIZACION-->
+        <div v-if="opcion==11">
+          <q-file
+            filled
+            bottom-slots
+            v-model="files_0"
+            label="CERTIFICADO DE TRADICION"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_0 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
+          <q-file
+            filled
+            bottom-slots
+            v-model="files_1"
+            label="LICENCIA DE TRANSITO"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_1 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
+          <q-card-section>           
+          <q-file filled bottom-slots v-model="files_2" label="DIJIN" counter>
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_2 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
+          <q-input dense filled v-model="date" mask="date" :rules="['date']" hint="Fecha expedicion DIJIN">
+            <template v-slot:append>
+              <q-icon name="event" class="cursor-pointer">
+                <q-popup-proxy
+                  cover
+                  transition-show="scale"
+                  transition-hide="scale"
+                >
+                  <q-date v-model="date1" color="purple">
+                    <div class="row items-center justify-end">
+                      <q-btn
+                        v-close-popup
+                        label="Close"
+                        color="purple"
+                        flat
+                      />
+                    </div>
+                  </q-date>
+                </q-popup-proxy>
+              </q-icon>
+            </template>
+          </q-input>
+          </q-card-section>          
+          <q-file
+            filled
+            bottom-slots
+            v-model="files_3"
+            label="CEDULA PROPIETARIO"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_3 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>          
+        </div>                             
+      </div>
+        <div class="q-pa-md q-gutter-sm text-white">
+          <q-btn
+            style="background-color: #e241e2"
+            icon-right="send"
+            label="Cargar Soportes"
+            @click="CargarDocumentos()"
+          />
+        </div>
+      </q-card>
+    </q-dialog>
 
     <q-card style="width: 100%" v-show="components_9">
       <q-item
@@ -782,7 +1917,125 @@
         </div>
       </div>
 
-      
+      <q-card-section>
+        <div class="row">
+          <div class="col">
+            <q-btn>
+              <img
+                src="../assets/load_nube.png"
+                @click="toolbar = true"
+                style="width: 50px; height: 50px"
+              />
+              <q-tooltip transition-show="rotate" transition-hide="rotate">
+                SUBIR ARCHIVOS
+              </q-tooltip>
+            </q-btn>
+
+            <q-btn v-show="components_6">
+              <img
+                src="../assets/download.png"
+                @click="f_descarga_soporte()"
+                style="width: 50px; height: 50px"
+              />
+              <q-tooltip transition-show="rotate" transition-hide="rotate">
+                DESCARGAR ARCHIVOS
+              </q-tooltip>
+            </q-btn>
+
+            <q-btn v-show="components_3">
+              <img
+                src="../assets/descargar_archivo.png"
+                @click="f_generardocumento()"
+                style="width: 50px; height: 50px"
+              />
+              <q-tooltip transition-show="rotate" transition-hide="rotate">
+                GENERAR ACTA
+              </q-tooltip>
+            </q-btn>
+            <q-btn>
+              <img
+                src="../assets/Reporte_excel.png"
+                @click="f_mensaje_test()"
+                style="width: 50px; height: 50px"
+              />
+              <q-tooltip transition-show="rotate" transition-hide="rotate">
+                REPORTE EXCEL
+              </q-tooltip>
+            </q-btn>
+          </div>
+          <div class="col">
+            <q-btn v-show="components_4">
+              <img
+                src="../assets/comprobado.png"
+                @click="aprobaregistro()"
+                style="width: 50px; height: 50px"
+              />
+              <q-tooltip transition-show="rotate" transition-hide="rotate">
+                APROBAR
+              </q-tooltip>
+            </q-btn>
+            <q-btn v-show="components_5">
+              <img
+                src="../assets/rechazar.png"
+                @click="
+                  components_3 = false;
+                  components_4 = false;
+                  components_5 = false;
+                  components_6 = false;
+                "
+                style="width: 50px; height: 50px"
+              />
+              <q-tooltip transition-show="rotate" transition-hide="rotate">
+                RECHAZAR
+              </q-tooltip>
+            </q-btn>
+          </div>
+          <div class="col-4">
+            <q-btn
+              style="margin-left: 2px"
+              color="purple"
+              glossy
+              @click="
+                components_2 = true;
+                components_9 = false;
+              "
+              >MODULO 2</q-btn
+            >
+
+            <q-btn
+              style="margin-left: 2px"
+              color="purple"
+              glossy
+              @click="
+                components_9 = false;
+                components_10 = true;
+                components_11 = false;
+              "
+              >MODULO 4</q-btn
+            >
+
+            <q-btn
+              style="margin-left: 2px"
+              color="purple"
+              glossy
+              @click="
+                components_9 = false;
+                components_10 = false;
+                components_11 = true;
+              "
+              >MODULO 5</q-btn
+            >
+          </div>
+          <div class="col-2">
+            <q-btn
+              style="background-color: #e241e2"
+              icon-right="save"
+              label="Guardar"
+              @click="f_guardar()"
+            />
+          </div>
+        </div>
+      </q-card-section>
     </q-card>
 
     <q-card style="width: 100%" v-show="components_10">
@@ -1348,25 +2601,6 @@ export default {
   data() {
     return {
 
-
-      nombre_propietario: "",     // APELLIDOS Y NOMBRE
-      tipo_documento: "",         // CC / CE / NIT, etc.
-      
-      certificacion_sijin: "",    // No. de certificación SIJIN
-      fecha_certificado_sijin: "",// Fecha certificado
-      
-      
-      decision: "",               // p.ej. "APROBADO", "RECHAZADO"
-      peso_bruto: "",             // si lo manejas
-      tipo_postulacion: "",       // campo libre
-      observaciones: "",          // texto de observaciones
-      generado_por: "",           // quien genera el acta (usuario logueado)
-
-
-
-
-
-      paso: 1,
       camaraFiles: [],
       logoFiles: [],
       poliza646Files: [],
@@ -1493,269 +2727,6 @@ export default {
   },
   methods: {
 
-
-    async f_generardocumento () {
-  // Carga dinámica de jsPDF
-  const { jsPDF } = await import("jspdf");
-
-  const doc = new jsPDF({
-    orientation: "portrait",
-    unit: "mm",
-    format: "letter"
-  });
-
-  // Siempre convertir a string
-  const S = (v) => (v === undefined || v === null ? "" : String(v));
-
-  const pageWidth  = doc.internal.pageSize.getWidth();
-  const marginLeft = 15;
-  const marginTop  = 15;
-  const tableWidth = pageWidth - marginLeft * 2;
-
-  // =========================
-  // ENCABEZADO
-  // =========================
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(10);
-
-  doc.text("NOMBRE DE DESINTEGRADORA", pageWidth / 2, marginTop, { align: "center" });
-
-  doc.setFontSize(9);
-  doc.text("CODIGO UNICO", marginLeft + tableWidth - 50, marginTop + 8);
-  doc.text(S(this.cod_resolucion), marginLeft + tableWidth - 20, marginTop + 8);
-
-  doc.text("PLACA DE VEHICULO", marginLeft + tableWidth - 50, marginTop + 16);
-  doc.text(S(this.placa), marginLeft + tableWidth - 20, marginTop + 16);
-
-  // =========================
-  // TABLA PRINCIPAL
-  // =========================
-
-  let y = marginTop + 25;
-  const rowHeight = 7;
-
-  // Título INFORMACION DEL PROPIETARIO
-  doc.setFont("helvetica", "bold");
-  doc.rect(marginLeft, y, tableWidth, rowHeight);
-  doc.text("INFORMACION DEL PROPIETARIO", marginLeft + tableWidth / 2, y + 4.5, { align: "center" });
-
-  y += rowHeight;
-
-  // Fila 1: APELLIDOS / TIPO / NUMERO DOCUMENTO
-  const colWidth3 = tableWidth / 3;
-
-  doc.setFont("helvetica", "normal");
-  doc.rect(marginLeft, y, colWidth3, rowHeight * 2);
-  doc.rect(marginLeft + colWidth3, y, colWidth3, rowHeight * 2);
-  doc.rect(marginLeft + colWidth3 * 2, y, colWidth3, rowHeight * 2);
-
-  doc.setFontSize(8);
-  doc.text("1. APELLIDOS Y NOMBRE", marginLeft + 2, y + 3);
-  doc.text("2. TIPO", marginLeft + colWidth3 + 2, y + 3);
-  doc.text("3. NUMERO DE DOCUMENTO", marginLeft + colWidth3 * 2 + 2, y + 3);
-
-  doc.setFontSize(9);
-  doc.text(S(this.nombre_propietario), marginLeft + 2, y + 7.5);
-  doc.text(S(this.tipo_documento), marginLeft + colWidth3 + 2, y + 7.5);
-  doc.text(S(this.numero_documento), marginLeft + colWidth3 * 2 + 2, y + 7.5);
-
-  y += rowHeight * 2;
-
-  // Fila 2: FECHA ACTA / CERTIFICACION SIJIN / FECHA CERTIFICADO
-  doc.rect(marginLeft, y, colWidth3, rowHeight * 2);
-  doc.rect(marginLeft + colWidth3, y, colWidth3, rowHeight * 2);
-  doc.rect(marginLeft + colWidth3 * 2, y, colWidth3, rowHeight * 2);
-
-  doc.setFontSize(8);
-  doc.text("4. FECHA DE ACTA", marginLeft + 2, y + 3);
-  doc.text("5. CERTIFICACION SIJIN No.", marginLeft + colWidth3 + 2, y + 3);
-  doc.text("6. FECHA DEL CERTIFICADO", marginLeft + colWidth3 * 2 + 2, y + 3);
-
-  doc.setFontSize(9);
-  const hoy = new Date().toLocaleDateString();
-  doc.text(S(hoy), marginLeft + 2, y + 7.5);
-  doc.text(S(this.certificacion_sijin), marginLeft + colWidth3 + 2, y + 7.5);
-  doc.text(S(this.fecha_certificado_sijin), marginLeft + colWidth3 * 2 + 2, y + 7.5);
-
-  y += rowHeight * 2;
-
-  // Título CARACTERISTICAS DE IDENTIFICACION
-  doc.setFont("helvetica", "bold");
-  doc.rect(marginLeft, y, tableWidth, rowHeight);
-  doc.text("CARACTERISTICAS DE IDENTIFICACION", marginLeft + tableWidth / 2, y + 4.5, { align: "center" });
-
-  y += rowHeight;
-
-  // Fila 3: CLASE / MODELO / VIDEO INGRESO
-  doc.setFont("helvetica", "normal");
-  doc.rect(marginLeft, y, colWidth3, rowHeight * 2);
-  doc.rect(marginLeft + colWidth3, y, colWidth3, rowHeight * 2);
-  doc.rect(marginLeft + colWidth3 * 2, y, colWidth3, rowHeight * 2);
-
-  doc.setFontSize(8);
-  doc.text("7. CLASE", marginLeft + 2, y + 3);
-  doc.text("8. MODELO", marginLeft + colWidth3 + 2, y + 3);
-  doc.text("9. VIDEO DE INGRESO", marginLeft + colWidth3 * 2 + 2, y + 3);
-
-  doc.setFontSize(9);
-  doc.text(S(this.tipo_vehiculo || this.clase), marginLeft + 2, y + 7.5);
-  doc.text(S(this.modelo), marginLeft + colWidth3 + 2, y + 7.5);
-  doc.text(S(this.numero_registro), marginLeft + colWidth3 * 2 + 2, y + 7.5);
-
-  y += rowHeight * 2;
-
-  // Fila 4: MARCA / LINEA / DECISION
-  doc.rect(marginLeft, y, colWidth3, rowHeight * 2);
-  doc.rect(marginLeft + colWidth3, y, colWidth3, rowHeight * 2);
-  doc.rect(marginLeft + colWidth3 * 2, y, colWidth3, rowHeight * 2);
-
-  doc.setFontSize(8);
-  doc.text("10. MARCA", marginLeft + 2, y + 3);
-  doc.text("11. LINEA", marginLeft + colWidth3 + 2, y + 3);
-  doc.text("12. DECISION", marginLeft + colWidth3 * 2 + 2, y + 3);
-
-  doc.setFontSize(9);
-  doc.text(S(this.marca), marginLeft + 2, y + 7.5);
-  doc.text(S(this.linea), marginLeft + colWidth3 + 2, y + 7.5);
-  doc.text(S(this.decision), marginLeft + colWidth3 * 2 + 2, y + 7.5);
-
-  y += rowHeight * 2;
-
-  // Fila 5: PESO BRUTO / NUMERO EJES / TIPO SERVICIO
-  doc.rect(marginLeft, y, colWidth3, rowHeight * 2);
-  doc.rect(marginLeft + colWidth3, y, colWidth3, rowHeight * 2);
-  doc.rect(marginLeft + colWidth3 * 2, y, colWidth3, rowHeight * 2);
-
-  doc.setFontSize(8);
-  doc.text("13. PESO BRUTO", marginLeft + 2, y + 3);
-  doc.text("14. NUMERO DE EJES", marginLeft + colWidth3 + 2, y + 3);
-  doc.text("15. TIPO DE SERVICIO", marginLeft + colWidth3 * 2 + 2, y + 3);
-
-  doc.setFontSize(9);
-  doc.text(S(this.peso_bruto), marginLeft + 2, y + 7.5);
-  doc.text(S(this.numero_ejes), marginLeft + colWidth3 + 2, y + 7.5);
-  doc.text(S(this.tipo_servicio), marginLeft + colWidth3 * 2 + 2, y + 7.5);
-
-  y += rowHeight * 2;
-
-  // Fila 6: NUMERO MOTOR / NUMERO CHASIS
-  const halfWidth = tableWidth / 2;
-  doc.rect(marginLeft, y, halfWidth, rowHeight * 2);
-  doc.rect(marginLeft + halfWidth, y, halfWidth, rowHeight * 2);
-
-  doc.setFontSize(8);
-  doc.text("16. NUMERO DE MOTOR", marginLeft + 2, y + 3);
-  doc.text("17. NUMERO DE CHASIS", marginLeft + halfWidth + 2, y + 3);
-
-  doc.setFontSize(9);
-  doc.text(S(this.numero_motor), marginLeft + 2, y + 7.5);
-  doc.text(S(this.numero_chasis), marginLeft + halfWidth + 2, y + 7.5);
-
-  y += rowHeight * 2;
-
-  // Fila 7: TIPO DE POSTULACION
-  doc.rect(marginLeft, y, tableWidth, rowHeight * 2);
-  doc.setFontSize(8);
-  doc.text("TIPO DE POSTULACION", marginLeft + 2, y + 3);
-  doc.setFontSize(9);
-  doc.text(S(this.tipo_postulacion), marginLeft + 2, y + 7.5);
-
-  y += rowHeight * 2;
-
-  // Fila 8: OBSERVACIONES
-  doc.rect(marginLeft, y, tableWidth, rowHeight * 3);
-  doc.setFontSize(8);
-  doc.text("OBSERVACIONES", marginLeft + 2, y + 3);
-  doc.setFontSize(9);
-
-  const obs = this.observaciones && this.observaciones.trim().length
-    ? this.observaciones
-    : "SIN OBSERVACIONES";
-
-  doc.text(S(obs), marginLeft + 2, y + 7.5, { maxWidth: tableWidth - 4 });
-
-  y += rowHeight * 3;
-
-  // Fila 9: GENERADO POR
-  doc.rect(marginLeft, y, tableWidth, rowHeight * 2);
-  doc.setFontSize(8);
-  doc.text("GENERADO POR", marginLeft + 2, y + 3);
-  doc.setFontSize(9);
-  doc.text(S(this.generado_por || this.username), marginLeft + 2, y + 7.5);
-
-  // =========================
-  // FIRMAS AUTORIZADAS
-  // =========================
-
-  y += rowHeight * 3;
-
-  doc.rect(marginLeft, y, tableWidth, rowHeight);
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(9);
-  doc.text("FIRMAS AUTORIZADAS", marginLeft + 2, y + 4.5);
-
-  y += rowHeight;
-
-  // PROPIETARIO / MINISTERIO
-  doc.setFont("helvetica", "normal");
-  doc.rect(marginLeft, y, halfWidth, rowHeight * 3);
-  doc.rect(marginLeft + halfWidth, y, halfWidth, rowHeight * 3);
-
-  doc.setFontSize(8);
-  doc.text("PROPIETARIO", marginLeft + 2, y + rowHeight * 3 - 1);
-  doc.text("MINISTERIO DE TRANSPORTE", marginLeft + halfWidth + 2, y + rowHeight * 3 - 1);
-
-  y += rowHeight * 3;
-
-  // UNION TEMPORAL / CERTIFICADORA
-  doc.rect(marginLeft, y, halfWidth, rowHeight * 3);
-  doc.rect(marginLeft + halfWidth, y, halfWidth, rowHeight * 3);
-
-  doc.text("UNION TEMPORAL", marginLeft + 2, y + rowHeight * 3 - 1);
-  doc.text("CERTIFICADORA", marginLeft + halfWidth + 2, y + rowHeight * 3 - 1);
-
-  y += rowHeight * 3;
-
-  // FECHA ELABORACION
-  doc.rect(marginLeft, y, tableWidth, rowHeight * 2);
-  doc.text("FECHA DE ELABORACION:", marginLeft + 2, y + rowHeight * 2 - 1);
-  doc.setFontSize(9);
-  doc.text(S(hoy), marginLeft + 60, y + rowHeight * 2 - 1);
-
-  // =========================
-  // PREVISUALIZACIÓN
-  // =========================
-  const pdfUrl = doc.output("bloburl");
-  window.open(pdfUrl, "_blank");
-}
-
-,
-
-    esImagen (ruta) {
-    const nombre = ruta.split('/').pop().toLowerCase()
-    return (
-      nombre.endsWith('.jpg') ||
-      nombre.endsWith('.jpeg') ||
-      nombre.endsWith('.png') ||
-      nombre.endsWith('.gif')
-    )
-  },
-
-  esVideo (ruta) {
-    const nombre = ruta.split('/').pop().toLowerCase()
-    return (
-      nombre.endsWith('.mp4') ||
-      nombre.endsWith('.avi') ||
-      nombre.endsWith('.mov') ||
-      nombre.endsWith('.mkv') ||
-      nombre.endsWith('.webm')
-    )
-  },
-
-  obtenerNombreArchivo (ruta) {
-    return ruta.split('/').pop().split('.')[0]
-  },
-
     volverAtras() {
       this.mostrarMultimedia = false;
     },
@@ -1831,7 +2802,7 @@ export default {
           });
       }
     },
-    DetalleDesintegracion (evt, row) {
+    DetalleDesintegracion(evt, row) {
       console.log(row.placa);
       console.log(row.id_ingreso);
 
@@ -1852,7 +2823,6 @@ export default {
       this.components = false;
       this.components_1 = false;
       this.components_2 = true;
-      this.paso = 1;            // 👈 SIEMPRE ARRANCAMOS EN PASO 1
 
       let datos = {
         codigo_ingreso: row.id_ingreso,
@@ -1862,6 +2832,7 @@ export default {
         .post("https://cemvid.ibingcode.com/public/getsoportes", datos)
         .then((result) => {
           console.log((this.rutas = result.data));
+          console.log(result.data[0].ruta.split("/", 2));
         });
     },
     CargarDocumentos() {
@@ -2427,7 +3398,7 @@ export default {
     f_mensaje_test() {
       Swal.fire("Funcionalidad en Desarrollo!");
     },
-    f_generardocumento2() {
+    f_generardocumento() {
       let datos = {
         placa: this.placa,
         id_desintegradora: this.desintegradora,

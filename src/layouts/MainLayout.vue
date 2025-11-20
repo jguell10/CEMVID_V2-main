@@ -99,7 +99,59 @@
                 </q-item-section>
 
                 <q-item-section>
-                  Gestion Desintegracion
+                  Gestion De Ingresos
+                </q-item-section>
+              </q-item>
+
+
+              <q-item
+                active-class="tab-active"
+                to="/listado2"
+                class="q-ma-sm navigation-item"
+                clickable
+                v-ripple
+              >
+                <q-item-section avatar>
+                  <q-icon name="car_crash" />
+                </q-item-section>
+
+                <q-item-section>
+                  Gestion De Desintegraciones
+                </q-item-section>
+              </q-item>
+
+              
+              
+
+              <q-item
+                active-class="tab-active"
+                to="/listar-desintegraciones"
+                class="q-ma-sm navigation-item"
+                clickable
+                v-ripple
+              >
+                <q-item-section avatar>
+                  <q-icon name="car_crash" />
+                </q-item-section>
+
+                <q-item-section>
+                  Listar Desintegraciones
+                </q-item-section>
+              </q-item>
+
+              <q-item
+                active-class="tab-active"
+                to="/listar-sedes"
+                class="q-ma-sm navigation-item"
+                clickable
+                v-ripple
+              >
+                <q-item-section avatar>
+                  <q-icon name="car_crash" />
+                </q-item-section>
+
+                <q-item-section>
+                  Listar Sedes
                 </q-item-section>
               </q-item>
 

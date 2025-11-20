@@ -243,6 +243,26 @@
                     { name: 'placa', value: placa }
                   ]"
                 />
+                          <q-file
+            filled
+            bottom-slots
+            v-model="files_0"
+            label="Logo_2"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_0 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
               </q-card-section> 
 
             </q-card>
@@ -276,6 +296,31 @@
                     { name: 'placa', value: placa }
                   ]"
                 />
+
+            <q-file
+            filled
+            bottom-slots
+            v-model="files_1"
+            label="Cámara de comercio_2"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_1 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
+
+
+
+
                 <q-card-section>
                   <q-input
                     standout="bg-purple-3 text-white"
@@ -326,6 +371,27 @@
                       ]"
                     />
 
+            <q-file
+            filled
+            bottom-slots
+            v-model="files_2"
+            label="Póliza 646_2"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_2 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
+
                     <q-card-section>
                       <q-input
                         standout="bg-purple-3 text-white"
@@ -355,6 +421,28 @@
                         { name: 'placa', value: placa }
                       ]"
                     />
+            <q-file
+            filled
+            bottom-slots
+            v-model="files_3"
+            label="Póliza 7036_2"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_3 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
+
+                    
 
                     <q-card-section>
                       <q-input
@@ -392,6 +480,27 @@
                   ]"
                 />
 
+                                              <q-file
+            filled
+            bottom-slots
+            v-model="files_4"
+            label="Certificación ISO 9001_2"
+            counter
+          >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_4 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
+
                 <q-card-section>
                   <q-input
                     standout="bg-purple-3 text-white"
@@ -425,6 +534,27 @@
                   { name: 'placa', value: placa }
                 ]"
               />
+
+            <q-file
+            filled
+            bottom-slots
+            v-model="files_5"
+            label="SARLAF_2"
+            counter
+           >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_5 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
               
               <q-card-section>
                 <q-uploader
@@ -442,6 +572,27 @@
                   { name: 'placa', value: placa }
                 ]"
               />
+
+            <q-file
+            filled
+            bottom-slots
+            v-model="files_6"
+            label="Política de tratamiento de datos_2"
+            counter
+           >
+            <template v-slot:prepend>
+              <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                name="close"
+                @click.stop.prevent="files_6 = null"
+                class="cursor-pointer"
+              ></q-icon>
+            </template>
+
+            <template v-slot:hint></template>
+          </q-file>
               </q-card-section>
             </q-card>
           </div>
@@ -1150,16 +1301,53 @@ export default {
     },
 
     f_guardar_desintegradora () {
-      // 👉 usar los nombres correctos de data()
-      const formData = new FormData()
-      formData.append('nombre', this.nombre_desintegradora)
-      formData.append('razon_social', this.razon_social)
-      formData.append('direccion_desintegradora', this.direccion_desintegradora)
-      formData.append('departamento', this.departamento)
-      formData.append('ciudad', this.ciudad)
-      formData.append('contacto_desintegradora', this.contacto_desintegradora)
-      formData.append('email_desintegradora', this.email_desintegradora)
-      formData.append('telefono_desintegradora', this.telefono_desintegradora)
+
+      if (
+        this.files_0 == "" ||
+        this.files_1 == "" ||
+        this.files_2 == "" ||
+        this.files_3 == "" ||
+        this.files_4 == "" ||
+        this.files_5 == "" ||
+        this.files_6 == "" 
+        ) {
+        this.toolbar = false;
+
+        Swal.fire({
+          title: "ERROR",
+          text: "No Ha Cargado Todos Los Soportes",
+          icon: "error",
+        });
+        } else {
+        Swal.fire({
+          title: "Cargando...",
+          html: "Por Favor Espere...",
+          allowEscapeKey: false,
+          allowOutsideClick: false,
+          showConfirmButton: false,
+          willOpen: () => {
+            this.toolbar = false;
+            Swal.showLoading();
+          },
+        });
+
+        let formData = new FormData();
+        formData.append("files_0", this.files_0);
+        formData.append("files_1", this.files_1);
+        formData.append("files_2", this.files_2);
+        formData.append("files_3", this.files_3);
+        formData.append("files_4", this.files_4);
+        formData.append("files_5", this.files_5);
+        formData.append("files_6", this.files_6);
+        formData.append('nombre', this.nombre_desintegradora)
+        formData.append('razon_social', this.razon_social)
+        formData.append('direccion_desintegradora', this.direccion_desintegradora)
+        formData.append('departamento', this.departamento)
+        formData.append('ciudad', this.ciudad)
+        formData.append('contacto_desintegradora', this.contacto_desintegradora)
+        formData.append('email_desintegradora', this.email_desintegradora)
+        formData.append('telefono_desintegradora', this.telefono_desintegradora);
+        const datospermitidos = { "Content-Type": "multipart/form-data" };
 
       axios.post('https://cemvid.ibingcode.com/public/guardar_desintegradora', formData)
         .then(result => {
@@ -1174,6 +1362,11 @@ export default {
               text: 'Registros Guardados Correctamente',
               icon: 'success'
             })
+
+              this.components_3 = false;
+              this.components_4 = true;
+              this.components_5 = true;
+              this.components_6 = true;
           } else {
             Swal.fire({
               title: 'FALLO',
@@ -1190,6 +1383,301 @@ export default {
             icon: 'error'
           })
         })
+        }     
+    },
+
+    CargarDocumentos() {
+      
+      if(this.opcion == 646 ||this.v_poder == false ){
+
+        
+
+      }else if(this.opcion == 2 ||this.opcion == 3 ||this.opcion == 6 ||this.opcion == 7 ||this.opcion == 10){
+
+              if (
+              this.files_0 == "" ||
+              this.files_1 == "" ||
+              this.files_2 == "" ||
+              this.files_3 == "" ||
+              this.files_4 == ""
+            ) {
+              this.toolbar = false;
+
+              Swal.fire({
+                title: "ERROR",
+                text: "No Ha Cargado Todos Los Soportes",
+                icon: "error",
+              });
+            } else {
+              Swal.fire({
+                title: "Cargando...",
+                html: "Por Favor Espere...",
+                allowEscapeKey: false,
+                allowOutsideClick: false,
+                showConfirmButton: false,
+                willOpen: () => {
+                  this.toolbar = false;
+                  Swal.showLoading();
+                },
+              });
+
+              let formData = new FormData();
+              formData.append("files_0", this.files_0);
+              formData.append("files_1", this.files_1);
+              formData.append("files_2", this.files_2);
+              formData.append("files_3", this.files_3);
+              formData.append("files_4", this.files_4);
+              formData.append("id_desintegradora", this.desintegradora);
+              formData.append("id_ingreso", this.numero_registro);
+              formData.append("placa", this.placa);
+              const datospermitidos = { "Content-Type": "multipart/form-data" };
+
+              axios
+                .post(
+                  "https://cemvid.ibingcode.com/public/cargar_documentos",
+                  formData,
+                  datospermitidos
+                )
+                .then((respuesta) => {
+                  var msg = respuesta.data;
+
+                  console.log(msg);
+                  if (msg == 1) {
+                    Swal.fire({
+                      title: "EXITO",
+                      text: "Soportes Cargados Correctamente",
+                      allowOutsideClick: false,
+                      showConfirmButton: true,
+                      icon: "success",
+                    });
+
+                    this.components_3 = false;
+                    this.components_4 = true;
+                    this.components_5 = true;
+                    this.components_6 = true;
+                  } else {
+                    Swal.fire({
+                      title: "FALLO",
+                      text: "Error Al Cargar Soportes",
+                      icon: "error",
+                    });
+                  }
+                });
+              Swal.close();
+            }
+
+        
+
+      }else if(this.opcion == 4 ||this.opcion == 8 ||this.opcion == 11){
+
+        if (
+        this.files_0 == "" ||
+        this.files_1 == "" ||
+        this.files_2 == "" ||
+        this.files_3 == ""
+      ) {
+        this.toolbar = false;
+
+        Swal.fire({
+          title: "ERROR",
+          text: "No Ha Cargado Todos Los Soportes",
+          icon: "error",
+        });
+      } else {
+        Swal.fire({
+          title: "Cargando...",
+          html: "Por Favor Espere...",
+          allowEscapeKey: false,
+          allowOutsideClick: false,
+          showConfirmButton: false,
+          willOpen: () => {
+            this.toolbar = false;
+            Swal.showLoading();
+          },
+        });
+
+        let formData = new FormData();
+        formData.append("files_0", this.files_0);
+        formData.append("files_1", this.files_1);
+        formData.append("files_2", this.files_2);
+        formData.append("files_3", this.files_3);
+        formData.append("id_desintegradora", this.desintegradora);
+        formData.append("id_ingreso", this.numero_registro);
+        formData.append("placa", this.placa);
+        const datospermitidos = { "Content-Type": "multipart/form-data" };
+
+        axios
+          .post(
+            "https://cemvid.ibingcode.com/public/cargar_documentos",
+            formData,
+            datospermitidos
+          )
+          .then((respuesta) => {
+            var msg = respuesta.data;
+
+            console.log(msg);
+            if (msg == 1) {
+              Swal.fire({
+                title: "EXITO",
+                text: "Soportes Cargados Correctamente",
+                allowOutsideClick: false,
+                showConfirmButton: true,
+                icon: "success",
+              });
+
+              this.components_3 = false;
+              this.components_4 = true;
+              this.components_5 = true;
+              this.components_6 = true;
+            } else {
+              Swal.fire({
+                title: "FALLO",
+                text: "Error Al Cargar Soportes",
+                icon: "error",
+              });
+            }
+          });
+        Swal.close();
+      }
+
+      }else if(this.opcion == 9){
+
+        if (
+        this.files_0 == "" 
+      ) {
+        this.toolbar = false;
+
+        Swal.fire({
+          title: "ERROR",
+          text: "No Ha Cargado Todos Los Soportes",
+          icon: "error",
+        });
+      } else {
+        Swal.fire({
+          title: "Cargando...",
+          html: "Por Favor Espere...",
+          allowEscapeKey: false,
+          allowOutsideClick: false,
+          showConfirmButton: false,
+          willOpen: () => {
+            this.toolbar = false;
+            Swal.showLoading();
+          },
+        });
+
+        let formData = new FormData();
+        formData.append("files_0", this.files_0);
+        formData.append("id_desintegradora", this.desintegradora);
+        formData.append("id_ingreso", this.numero_registro);
+        formData.append("placa", this.placa);
+        const datospermitidos = { "Content-Type": "multipart/form-data" };
+
+        axios
+          .post(
+            "https://cemvid.ibingcode.com/public/cargar_documentos",
+            formData,
+            datospermitidos
+          )
+          .then((respuesta) => {
+            var msg = respuesta.data;
+
+            console.log(msg);
+            if (msg == 1) {
+              Swal.fire({
+                title: "EXITO",
+                text: "Soportes Cargados Correctamente",
+                allowOutsideClick: false,
+                showConfirmButton: true,
+                icon: "success",
+              });
+
+              this.components_3 = false;
+              this.components_4 = true;
+              this.components_5 = true;
+              this.components_6 = true;
+            } else {
+              Swal.fire({
+                title: "FALLO",
+                text: "Error Al Cargar Soportes",
+                icon: "error",
+              });
+            }
+          });
+        Swal.close();
+      }
+
+           
+
+      }
+      /*if (
+        this.files_0 == "" ||
+        this.files_1 == "" ||
+        this.files_2 == "" ||
+        this.files_3 == ""
+      ) {
+        this.toolbar = false;
+
+        Swal.fire({
+          title: "ERROR",
+          text: "No Ha Cargado Todos Los Soportes",
+          icon: "error",
+        });
+      } else {
+        Swal.fire({
+          title: "Cargando...",
+          html: "Por Favor Espere...",
+          allowEscapeKey: false,
+          allowOutsideClick: false,
+          showConfirmButton: false,
+          willOpen: () => {
+            this.toolbar = false;
+            Swal.showLoading();
+          },
+        });
+
+        let formData = new FormData();
+        formData.append("files_0", this.files_0);
+        formData.append("files_1", this.files_1);
+        formData.append("files_2", this.files_2);
+        formData.append("files_3", this.files_3);
+        formData.append("id_desintegradora", this.desintegradora);
+        formData.append("id_ingreso", this.numero_registro);
+        formData.append("placa", this.placa);
+        const datospermitidos = { "Content-Type": "multipart/form-data" };
+
+        axios
+          .post(
+            "https://cemvid.ibingcode.com/public/cargar_documentos",
+            formData,
+            datospermitidos
+          )
+          .then((respuesta) => {
+            var msg = respuesta.data;
+
+            console.log(msg);
+            if (msg == 1) {
+              Swal.fire({
+                title: "EXITO",
+                text: "Soportes Cargados Correctamente",
+                allowOutsideClick: false,
+                showConfirmButton: true,
+                icon: "success",
+              });
+
+              this.components_3 = false;
+              this.components_4 = true;
+              this.components_5 = true;
+              this.components_6 = true;
+            } else {
+              Swal.fire({
+                title: "FALLO",
+                text: "Error Al Cargar Soportes",
+                icon: "error",
+              });
+            }
+          });
+        Swal.close();
+      }*/
     },
 
     f_guardar_sede () {
