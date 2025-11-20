@@ -2573,7 +2573,7 @@ export default {
       model: ref(null),
       options: ["Google", "Facebook", "Twitter", "Apple", "Oracle"],
       date: ref("2024/02/01"),
-      date1: ref("2024/02/01"),
+      date1: ref(new Date().toISOString().slice(0, 10).replace(/-/g, '/')),
       username: "",
       password: "",
       confirmPassword: "",
