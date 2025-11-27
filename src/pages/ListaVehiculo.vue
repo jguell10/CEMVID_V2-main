@@ -1418,30 +1418,39 @@ export default {
       vehiculo: [],
       headers_vehiculo: [
         {
-          label: "#REGISTRO",
-          field: "id_ingreso",
-          name: "id_ingreso",
-          align: "center",
-        },
-        { label: "PLACA", field: "placa", name: "placa", align: "center" },
-        {
           label: "FECHA_INGRESO",
           field: "fecha_ingreso",
           name: "fecha_ingreso",
           align: "center",
         },
-        {
-          label: "LATITUD",
-          field: "latitud",
-          name: "latitud",
-          align: "center",
+        { label: "PLACA",
+          field: "placa",
+          name: "placa",
+          align: "center" 
         },
-        {
-          label: "LONGITUD",
-          field: "longitud",
-          name: "longitud",
-          align: "center",
+        { label: "NUMERO DE MOTOR",
+          field: "numero_motor",
+          name: "numero_motor",
+          align: "center" 
         },
+        { label: "NUMERO DE CHASIS",
+          field: "numero_chasis",
+          name: "numero_chasis",
+          align: "center" 
+        },       
+        
+        { label: "PLACA",
+          field: "placa",
+          name: "placa",
+          align: "center"
+        },
+        { label: "VIN",
+          field: "vin",
+          name: "vin",
+          align: "center"
+        },         
+        
+        
       ],
       rutas: [],
       components: true,
@@ -1824,6 +1833,7 @@ export default {
             this.marca = result.data[0].marca;
             this.modelo = result.data[0].modelo;
             this.color = result.data[0].color;
+            this.vin = row.vin;
             this.mostrarMultimedia = false
           });
           
@@ -1866,6 +1876,8 @@ export default {
       this.marca = row.marca;
       this.modelo = row.modelo;
       this.color = row.color;
+      this.vin = row.vin;
+      
 
       this.components = false;
       this.components_1 = false;
