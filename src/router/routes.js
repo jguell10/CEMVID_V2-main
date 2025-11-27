@@ -14,6 +14,7 @@ const routes = [
     children: [
       // {path: '', component: () => import('pages/Login.vue')},
       { path: 'index', component: () => import('pages/Index.vue'),meta:{requiresAuth:true} },
+      { path: 'dashboard', component: () => import('pages/dashboard.vue'),meta:{requiresAuth:true} },
       { path: 'listado', component: () => import('pages/ListaVehiculo.vue'),meta:{requiresAuth:true} },
       { path: 'listado2', component: () => import('pages/ListaVehiculo2.vue'),meta:{requiresAuth:true} },
       { path: 'marca', component: () => import('pages/Marca.vue'),meta:{requiresAuth:true} },

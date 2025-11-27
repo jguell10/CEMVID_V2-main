@@ -23,12 +23,13 @@
         -->
         <q-tabs v-model="tab" shrink stretch>
 
-          <q-tab name="tab6" label="CONTRATOS" @click="components_1=false;components_2=false;components_3=false;components_4=false;components_5=false;components_6=true;" />
+          
           <q-tab name="tab4" label="DESINTEGRADORA " @click="components_1=false;components_2=false;components_3=false;components_4=true;components_5=false;components_6=false;" />
           <q-tab name="tab5" label="SEDE" @click="components_1=false;components_2=false;components_3=false;components_4=false;components_5=true;components_6=false;" />
+          <q-tab name="tab3" label="USUARIOS " @click="components_1=false;components_2=false;components_3=true;components_4=false;components_5=false;components_6=false;" />
+          <q-tab name="tab6" label="CONTRATOS" @click="components_1=false;components_2=false;components_3=false;components_4=false;components_5=false;components_6=true;" />
           <q-tab name="tab1" label="MARCAS VEHICULOS" @click="components_1=true;components_2=false;components_3=false;components_4=false;components_5=false;components_6=false;" />
           <q-tab name="tab2" label="COLORES VEHICULOS" @click="components_1=false;components_2=true;components_3=false;components_4=false;components_5=false;components_6=false;" />
-          <q-tab name="tab3" label="USUARIOS " @click="components_1=false;components_2=false;components_3=true;components_4=false;components_5=false;components_6=false;" />
                               
         </q-tabs>
       </q-toolbar>

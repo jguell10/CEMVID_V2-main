@@ -176,22 +176,47 @@
             </q-card-section>
 
             <q-card-section>
-              <q-input
+              <q-field
                 standout="bg-purple-3 text-white"
-                label="Número de ejes"
+                label="Numero de motor"
                 stack-label
-                v-model="numero_ejes"
-              />
+              >
+                <template v-slot:control>
+                  <div class="self-center full-width no-outline" tabindex="0">
+                    {{ numero_motor }}
+                  </div>
+                </template>
+              </q-field>
             </q-card-section>
 
             <q-card-section>
-              <q-input
+              <q-field
                 standout="bg-purple-3 text-white"
-                label="Línea"
+                label="Numero de chasis"
                 stack-label
-                v-model="linea"
-              />
+              >
+                <template v-slot:control>
+                  <div class="self-center full-width no-outline" tabindex="0">
+                    {{ numero_chasis }}
+                  </div>
+                </template>
+              </q-field>
+            </q-card-section>           
+
+            <q-card-section>
+              <q-field
+                standout="bg-purple-3 text-white"
+                label="Numero de VIN"
+                stack-label
+              >
+                <template v-slot:control>
+                  <div class="self-center full-width no-outline" tabindex="0">
+                    {{ vin }}
+                  </div>
+                </template>
+              </q-field>
             </q-card-section>
+
           </q-card>
         </div>
 
@@ -210,21 +235,7 @@
               <q-btn target="_blank" glossy style="background-color: #f76ff7">
                 {{ latitud }} - {{ longitud }}
               </q-btn>
-            </q-card-section>
-
-            <q-card-section>
-              <q-field
-                standout="bg-purple-3 text-white"
-                label="Numero de motor"
-                stack-label
-              >
-                <template v-slot:control>
-                  <div class="self-center full-width no-outline" tabindex="0">
-                    {{ numero_motor }}
-                  </div>
-                </template>
-              </q-field>
-            </q-card-section>
+            </q-card-section>          
 
             <q-card-section>
               <q-select
@@ -243,27 +254,72 @@
             </q-card-section>
 
             <q-card-section>
-              <q-field
+              <q-input
                 standout="bg-purple-3 text-white"
-                label="Numero de chasis"
+                label="Número de ejes"
                 stack-label
-              >
-                <template v-slot:control>
-                  <div class="self-center full-width no-outline" tabindex="0">
-                    {{ numero_chasis }}
-                  </div>
-                </template>
-              </q-field>
+                v-model="numero_ejes"
+              />
             </q-card-section>
 
             <q-card-section>
               <q-input
                 standout="bg-purple-3 text-white"
+                label="Línea"
+                stack-label
+                v-model="linea"
+              />
+            </q-card-section>            
+
+            <q-card-section>
+              <q-select
+                standout="bg-purple-3 text-white"
                 label="Siniestro"
                 stack-label
                 v-model="siniestro"
+                :options="[
+                  { label: 'Sí', value: 'SI' },
+                  { label: 'No', value: 'NO' }
+                ]"
+                emit-value
+                map-options
               />
             </q-card-section>
+
+
+            <q-btn
+              label="Apoderado"
+              color="purple"
+              class="full-width"
+              @click="abrirVentana = true"
+            />
+
+            <q-dialog v-model="abrirVentana">
+              <q-card style="width: 350px; max-width: 90vw;">
+                <q-card-section class="text-h6">
+                  Datos adicionales
+                </q-card-section>
+
+                <q-card-section>
+                  <q-input v-model="campo1" label="Dato 1" dense />
+                  <q-input v-model="campo2" label="Dato 2" dense class="q-mt-sm" />
+                  <q-input v-model="campo3" label="Dato 3" dense class="q-mt-sm" />
+                </q-card-section>
+
+                <q-card-actions align="right">
+                  <q-btn flat label="Cancelar" color="negative" @click="abrirVentana = false" />
+                  <q-btn flat label="Guardar" color="positive" @click="guardarDatos" />
+                </q-card-actions>
+              </q-card>
+            </q-dialog>
+
+
+
+
+
+
+
+
           </q-card>
         </div>
       </div>
@@ -1343,12 +1399,23 @@
 import logoCemdiv from "../assets/logo_prueba.jpg";
 import axios from "axios";
 import { ref } from "vue";
+
 import Swal from "sweetalert2";
 export default {
   name: "App",
 
   data() {
     return {
+
+      abrirVentana: false,
+
+      campo1: "",
+      campo2: "",
+      campo3: "",      
+
+      tipo_servicio: null,
+      numero_ejes:null,
+      linea:null,
 
 
       nombre_propietario: "",     // APELLIDOS Y NOMBRE
@@ -1503,6 +1570,11 @@ export default {
     // this.username='yordis';
   },
   methods: {
+
+    guardarDatos() {
+    console.log(this.campo1, this.campo2, this.campo3);
+    this.abrirVentana = false;
+  },
 
 
     async f_generardocumento () {

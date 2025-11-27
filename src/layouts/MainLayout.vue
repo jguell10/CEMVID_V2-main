@@ -54,15 +54,14 @@
           <q-scroll-area style="height:100%;">
             <q-list padding>
               <q-item
-                active-class="tab-active"
-                
-                @click="f_mensaje_test()"
+                active-class="tab-active"                
+                to="/dashboard"
                 class="q-ma-sm navigation-item"
                 clickable
                 v-ripple
               >
                 <q-item-section avatar>
-                  <q-icon name="dashboard" />
+                  <q-icon name="car_crash" />
                 </q-item-section>
 
                 <q-item-section>
