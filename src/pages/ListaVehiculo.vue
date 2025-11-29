@@ -286,14 +286,14 @@
               />
             </q-card-section>
 
-
-            <q-btn
+            <!--
+             <q-btn
               label="Apoderado"
               color="purple"
               class="full-width"
               @click="abrirVentana = true"
             />
-
+             
             <q-dialog v-model="abrirVentana">
               <q-card style="width: 350px; max-width: 90vw;">
                 <q-card-section class="text-h6">
@@ -312,6 +312,8 @@
                 </q-card-actions>
               </q-card>
             </q-dialog>
+
+             -->
 
 
 
@@ -555,6 +557,25 @@
                   ]"
                 />                
               </q-card-section>
+
+              <q-card-section v-if="mostrarSijin">
+                <q-uploader
+                  label="SIJIN"
+                  style="width: 100%;"
+                  flat
+                  bordered
+                  color="purple"
+                  text-color="white"
+                  no-thumbnails
+                  url="https://cemvid.ibingcode.com/public/subir_documentos_desintegradora"
+                  field-name="sijin"
+                  :form-fields="[
+                    { name: 'id_desintegradora', value: id_desintegradora },
+                    { name: 'placa', value: placa }
+                  ]"
+                />                
+              </q-card-section>
+
 
 
 
@@ -1565,6 +1586,22 @@ export default {
     };
   },
 
+        computed: {
+        mostrarSijin() {
+          const permitidos = [
+            "Motocicleta",
+            "Otro tipo de motocicleta",
+            "Automoviles",
+            "Camperos",
+            "Camionetas",
+            "Microbus",
+            "Busetas",
+            "Buses"
+          ];
+          return permitidos.includes((this.tipo_vehiculo || "").toString().trim());
+        }
+      },
+
   created() {
     this.username = localStorage.getItem("nombre");
     // this.username='yordis';
@@ -1580,6 +1617,8 @@ export default {
     async f_generardocumento () {
   // Carga dinámica de jsPDF
   const { jsPDF } = await import("jspdf");
+
+  
 
   const doc = new jsPDF({
     orientation: "portrait",
