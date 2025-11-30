@@ -625,14 +625,20 @@
                       no-thumbnails
                       auto-upload="false"
                       hide-upload-btn
+                       url="https://cemvid.ibingcode.com/public/subir_documentos_sede_desintegradora"
+                      field-name="poliza_646"
+                      :form-fields="[
+                      { name: 'id_desintegradora', value: id_desintegradora_sede },
+                      { name: 'id_sede', value: id_sede }
+                      ]"
                     />
 
                     <q-card-section>
                       <q-input
                         standout="bg-purple-3 text-white"
-                        label="Fecha de vencimiento de poliza"
+                        label="Fecha de vencimiento de poliza 646" 
                         stack-label
-                        v-model="fecha_vencimiento_poliza"
+                        v-model="fecha_vencimiento_poliza_646"
                         type="date"
                       />
                     </q-card-section>                  
@@ -653,14 +659,20 @@
                       no-thumbnails
                       auto-upload="false"
                       hide-upload-btn
+                      url="https://cemvid.ibingcode.com/public/subir_documentos_sede_desintegradora"
+                      field-name="poliza_7036"
+                      :form-fields="[
+                      { name: 'id_desintegradora', value: id_desintegradora_sede},
+                      { name: 'id_sede', value: id_sede}
+                      ]"
                     />
 
                     <q-card-section>
                       <q-input
                         standout="bg-purple-3 text-white"
-                        label="Fecha de vencimiento de POLIZA"
+                        label="Fecha de vencimiento de poliza 7036"
                         stack-label
-                        v-model="fecha_vencimiento_poliza"
+                        v-model="fecha_vencimiento_poliza_7036"
                         type="date"
                       />
                     </q-card-section>
@@ -685,6 +697,12 @@
                   no-thumbnails
                   auto-upload="false"
                   hide-upload-btn
+                  url="https://cemvid.ibingcode.com/public/subir_documentos_sede_desintegradora"
+                  field-name="resolucion_ambiental"
+                  :form-fields="[
+                  { name: 'id_desintegradora', value: id_desintegradora_sede},
+                  { name: 'id_sede', value: id_sede}
+                  ]"
                 />
               </q-card-section>
 
@@ -700,6 +718,13 @@
                   no-thumbnails
                   auto-upload="false"
                   hide-upload-btn
+                  url="https://cemvid.ibingcode.com/public/subir_documentos_sede_desintegradora"
+                  field-name="bomberos"
+                  :form-fields="[
+                  { name: 'id_desintegradora', value: id_desintegradora_sede},
+                  { name: 'id_sede', value: id_sede }                  
+                  
+                  ]"
                 />
 
                 <q-input
@@ -725,6 +750,13 @@
                   no-thumbnails
                   auto-upload="false"
                   hide-upload-btn
+                  url="https://cemvid.ibingcode.com/public/subir_documentos_sede_desintegradora"
+                  field-name="certificado_salud"
+                  :form-fields="[
+                  { name: 'id_desintegradora', value: id_desintegradora_sede},
+                  {  name: 'id_sede', value: id_sede  }                  
+                  
+                  ]"
                 />
 
                 <q-input
@@ -750,6 +782,13 @@
                   no-thumbnails
                   auto-upload="false"
                   hide-upload-btn
+                  url="https://cemvid.ibingcode.com/public/subir_documentos_sede_desintegradora"
+                  field-name="uso_suelo"
+                  :form-fields="[
+                  { name: 'id_desintegradora', value: id_desintegradora},
+                  {  name: 'id_sede', value: id_sede}                    
+                  
+                  ]"
                 />
               </q-card-section>
               
@@ -830,7 +869,7 @@
       <q-card-section>
         <div class="row">
           <div class="col-2">
-            <q-btn style="background-color:#e241e2;" icon-right="save" label="Guardar" @click="f_guardar_sede()" />
+            <q-btn style="background-color:#e241e2;" icon-right="save" label="Guardar" @click="f_mensaje_test()" />
           </div>
         </div>
       </q-card-section>
@@ -918,13 +957,15 @@ export default {
 
       nombre_sede: '',
       id_desintegradora_sede:'',
+      id_sede:'',
       direccion_sede:'',
       contacto_sede: '',
       email_sede: '',
       telefono_sede:'',
       radio_metros: '',
-      fecha_vencimiento_sarlaf: '',
+      fecha_vencimiento_poliza: '',
       fecha_vencimiento_salud: '',
+      
 
       // ---- variables de módulos ----
       value: ref(true),
@@ -1260,103 +1301,76 @@ export default {
   console.log('this.fecha_vencimiento_iso:', this.fecha_vencimiento_iso)
    
 
-  // const formData = new FormData()
+  const formData = new FormData()
   
-  // formData.append('fecha_camaracomercio', this.fecha_camara_comercio)
-  // formData.append('fecha_vencimiento_poliza_646', this.fecha_vencimiento_poliza_646)
-  // formData.append('fecha_vencimiento_poliza_7036', this.fecha_vencimiento_poliza_7036)
-  // formData.append('fecha_vencimiento_iso', this.fecha_vencimiento_iso)
-  // formData.append('nombre', this.nombre_desintegradora)
-  // formData.append('razon_social', this.razon_social)
-  // formData.append('direccion_desintegradora', this.direccion_desintegradora)
-  // formData.append('nit', this.nit)
-  // formData.append('departamento', this.departamento)
-  // formData.append('ciudad', this.ciudad)
-  // formData.append('contacto_desintegradora', this.contacto_desintegradora)  
-  // formData.append('email_desintegradora', this.email_desintegradora)
-  // formData.append('telefono_desintegradora', this.telefono_desintegradora)
-  // si manejas placa también en este guardar:
-  // formData.append('placa', this.placa)
+  formData.append('fecha_camaracomercio', this.fecha_camara_comercio)
+  formData.append('fecha_vencimiento_poliza_646', this.fecha_vencimiento_poliza_646)
+  formData.append('fecha_vencimiento_poliza_7036', this.fecha_vencimiento_poliza_7036)
+  formData.append('fecha_vencimiento_iso', this.fecha_vencimiento_iso)
+  formData.append('nombre', this.nombre_desintegradora)
+  formData.append('razon_social', this.razon_social)
+  formData.append('direccion_desintegradora', this.direccion_desintegradora)
+  formData.append('nit', this.nit)
+  formData.append('departamento', this.departamento)
+  formData.append('ciudad', this.ciudad)
+  formData.append('contacto_desintegradora', this.contacto_desintegradora)  
+  formData.append('email_desintegradora', this.email_desintegradora)
+  formData.append('telefono_desintegradora', this.telefono_desintegradora)
 
-  // axios.post('https://cemvid.ibingcode.com/public/guardar_desintegradora', formData)
-  //   .then(result => {
-  //     const msg = typeof result.data === 'string'
-  //       ? JSON.parse(result.data)
-  //       : result.data
 
-  //     if (msg.CODIGO === 0 || msg.CODIGO === '0') {
-  //       // Si la API devuelve el id, lo guardamos para que lo usen los q-uploader
-  //       if (msg.ID_DESINTEGRADORA || msg.id_desintegradora) {
-  //         this.id_desintegradora = msg.ID_DESINTEGRADORA || msg.id_desintegradora
-  //         console.log('this.id_desintegradora:', this.id_desintegradora)
-  //       }
+  axios.post('https://cemvid.ibingcode.com/public/guardar_desintegradora', formData)
+    .then(result => {
+      const msg = typeof result.data === 'string'
+        ? JSON.parse(result.data)
+        : result.data
+
+      if (msg.CODIGO === 0 || msg.CODIGO === '0') {
+        // Si la API devuelve el id, lo guardamos para que lo usen los q-uploader
+        if (msg.ID_DESINTEGRADORA || msg.id_desintegradora) {
+          this.id_desintegradora = msg.ID_DESINTEGRADORA || msg.id_desintegradora
+          console.log('this.id_desintegradora:', this.id_desintegradora)
+        }
 
         // 👉 Ahora disparamos las subidas de TODOS los q-uploader
-      //  this.$nextTick(() => {
-      //         const uploaders = [
-      //           this.$refs.uplLogo,
-      //           this.$refs.uplCamaraComercio,
-      //           this.$refs.uplPoliza646,
-      //           this.$refs.uplPoliza7036,
-      //           this.$refs.uplRut,
-      //           this.$refs.uplIso9001,
-      //           this.$refs.uplSarlaf,
-      //           this.$refs.uplPoliticaDatos
-      //         ]
-
-      //         uploaders.forEach(upl => {
-      //             if (upl) {
-      //               console.log('Llamando upload() de', upl)
-      //               //upl.upload()
-      //             }
-      //         })
-      //       })
-      this.$nextTick(() => {
-  const uploadersMap = {
-    logo: this.$refs.uplLogo,
-    camara: this.$refs.uplCamaraComercio,
-    poliza646: this.$refs.uplPoliza646,
-    poliza7036: this.$refs.uplPoliza7036,
-    rut: this.$refs.uplRut,
-    iso9001: this.$refs.uplIso9001,
-    sarlaf: this.$refs.uplSarlaf,
-    politicaDatos: this.$refs.uplPoliticaDatos
-  }
-
-  console.log('refs disponibles en this.$refs:', Object.keys(this.$refs))
-
-  Object.entries(uploadersMap).forEach(([name, upl]) => {
-    console.log('>> uploader', name, '=>', upl)
-    // if (upl) {
-    //   upl.upload()
-    // }
-  })
-})
-
-
-
-
-    //     Swal.fire({
-    //       title: 'ÉXITO',
-    //       text: 'Registros Guardados Correctamente',
-    //       icon: 'success'
-    //     })
-    //   } else {
-    //     Swal.fire({
-    //       title: 'FALLO',
-    //       text: msg.DATOS || 'Error al guardar registros',
-    //       icon: 'error'
-    //     })
-    //   }
-    // })
-    // .catch(err => {
-    //   console.error(err)
-    //   Swal.fire({
-    //     title: 'ERROR',
-    //     text: 'Error al comunicarse con el servidor',
-    //     icon: 'error'
-    //   })
-    // })
+       this.$nextTick(() => {
+              const uploaders = [
+                this.$refs.uplLogo,
+                this.$refs.uplCamaraComercio,
+                this.$refs.uplPoliza646,
+                this.$refs.uplPoliza7036,
+                this.$refs.uplRut,
+                this.$refs.uplIso9001,
+                this.$refs.uplSarlaf,
+                this.$refs.uplPoliticaDatos
+              ]
+              uploaders.forEach(upl => {
+                  if (upl) {
+                    console.log('Llamando upload() de', upl)
+                    upl.upload()
+                  }
+              })
+            })
+        Swal.fire({
+          title: 'ÉXITO',
+          text: 'Registros Guardados Correctamente',
+          icon: 'success'
+        })
+      } else {
+        Swal.fire({
+          title: 'FALLO',
+          text: msg.DATOS || 'Error al guardar registros',
+          icon: 'error'
+        })
+      }
+    })
+    .catch(err => {
+      console.error(err)
+      Swal.fire({
+        title: 'ERROR',
+        text: 'Error al comunicarse con el servidor',
+        icon: 'error'
+      })
+    })
 }
 
     ,
@@ -1372,6 +1386,23 @@ export default {
         lng = partes[1].trim()
       }
 
+      console.log('this.nombre_sede:', this.nombre_sede)
+      console.log('this.id_desintegradora_sede:', this.id_desintegradora_sede)
+      console.log('this.direccion_sede:', this.direccion_sede)
+      console.log('this.departamento:',this.departamento)
+      console.log('this.ciudad:', this.ciudad)
+      console.log('this.contacto_sede:', this.contacto_sede)
+      console.log('this.email_sede:', this.email_sede)
+      console.log('this.telefono_sede:', this.telefono_sede)
+      console.log('lat:', lat)
+      console.log('lng:', lng)
+      console.log('this.radio_metros:', this.radio_metros)
+      console.log('this.fecha_vencimiento_poliza_646:', this.fecha_vencimiento_poliza_646)
+      console.log('this.fecha_vencimiento_poliza_7036:', this.fecha_vencimiento_poliza_7036)
+      console.log('this.fecha_vencimiento_poliza:', this.fecha_vencimiento_poliza)
+      console.log('this.fecha_vencimiento_salud:', this.fecha_vencimiento_salud)
+      
+
       // 2. Enviar como FormData (igual que en f_guardar_desintegradora)
       const formData = new FormData()
       formData.append('nombre_sede', this.nombre_sede)
@@ -1385,6 +1416,11 @@ export default {
       formData.append('latitud', lat)
       formData.append('longitud', lng)
       formData.append('radio_metros', this.radio_metros)
+      formData.append('fecha_vencimiento_poliza_646', this.fecha_vencimiento_poliza_646)
+      formData.append('fecha_vencimiento_poliza_7036', this.fecha_vencimiento_poliza_7036)
+      formData.append('fecha_vencimiento_poliza', this.fecha_vencimiento_poliza)
+      formData.append('fecha_vencimiento_salud', this.fecha_vencimiento_salud)
+      
       
 
       axios.post('https://cemvid.ibingcode.com/public/guardar_sede', formData)
@@ -1395,11 +1431,45 @@ export default {
             ? JSON.parse(res.data)
             : res.data
 
-          if (msg.CODIGO === 0 || msg.CODIGO === '0') {
-            Swal.fire('ÉXITO', 'Sede guardada correctamente', 'success')
-          } else {
-            Swal.fire('FALLO', msg.DATOS || 'Error al guardar sede', 'error')
-          }
+      if (msg.CODIGO === 0 || msg.CODIGO === '0') {
+        // Si la API devuelve el id, lo guardamos para que lo usen los q-uploader
+        if (msg.ID_SEDE || msg.id_sede) {
+          this.id_sede = msg.ID_SEDE || msg.id_sede
+          this.id_desintegradora = this.id_desintegradora_sede
+          console.log('this.id_sede:', this.id_sede, 'this.id_desintegradora:', this.id_desintegradora)
+        }
+
+        // 👉 Ahora disparamos las subidas de TODOS los q-uploader
+       this.$nextTick(() => {
+              const uploaders = [
+                this.$refs.uplPoliza646,
+                this.$refs.uplPoliza7036,
+                this.$refs.uplResolucionAmbiental,
+                this.$refs.uplBomberos,
+                this.$refs.uplSalud,
+                this.$refs.uplUsoSuelo,
+  
+              ]
+              uploaders.forEach(upl => {
+                  if (upl) {
+                    console.log('Llamando upload() de', upl)
+                    upl.upload()
+                  }
+              })
+            })
+        Swal.fire({
+          title: 'ÉXITO',
+          text: 'Registros Guardados Correctamente',
+          icon: 'success'
+        })
+      }else{
+        Swal.fire({
+          title: 'FALLO',
+          text: msg.DATOS || 'Error al guardar registros de sede',
+          icon: 'error'
+        })
+    }
+
         })
         .catch(err => {
           console.error('Error en guardar_sede:', err)
