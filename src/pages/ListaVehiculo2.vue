@@ -30,27 +30,81 @@
       </q-item>
 
       <q-card-section>
-        <!-- Botones para seleccionar sección -->
+        <!-- Botones para seleccionar sección (orden: Cabina / Chasis / Motor / Plaquetas / Placa / Vehículo) -->
         <div class="row q-col-gutter-md q-pa-sm">
-          <div class="col-auto">
-            <q-btn flat rounded color="primary" label="Motor" @click="mostrarSolo('motor')" :outline="activeSection !== 'motor'" />
-          </div>
-          <div class="col-auto">
-            <q-btn flat rounded color="primary" label="Cabina" @click="mostrarSolo('cabina')" :outline="activeSection !== 'cabina'" />
-          </div>
-          <div class="col-auto">
-            <q-btn flat rounded color="primary" label="Chasis" @click="mostrarSolo('chasis')" :outline="activeSection !== 'chasis'" />
-          </div>
-          <div class="col-auto">
-            <q-btn flat rounded color="primary" label="Placa" @click="mostrarSolo('placa')" :outline="activeSection !== 'placa'" />
-          </div>
-          <div class="col-auto">
-            <q-btn flat rounded color="primary" label="Vehículo" @click="mostrarSolo('completo')" :outline="activeSection !== 'completo'" />
-          </div>
-          <div class="col-auto">
-            <q-btn flat rounded color="primary" label="Plaquetas" @click="mostrarSolo('plaquetas')" :outline="activeSection !== 'plaquetas'" />
-          </div>
-        </div>
+  <div class="col-auto">
+    <q-btn 
+      rounded
+      :label="'Cabina'" 
+      :color="activeSection === 'cabina' ? 'purple' : 'primary'"
+      :unelevated="activeSection === 'cabina'"
+      :flat="activeSection !== 'cabina'"
+      :outline="activeSection !== 'cabina'"
+      @click="mostrarSolo('cabina')" 
+    />
+  </div>
+  
+  <div class="col-auto">
+    <q-btn 
+      rounded
+      label="Chasis"
+      :color="activeSection === 'chasis' ? 'purple' : 'primary'"
+      :unelevated="activeSection === 'chasis'"
+      :flat="activeSection !== 'chasis'"
+      :outline="activeSection !== 'chasis'"
+      @click="mostrarSolo('chasis')" 
+    />
+  </div>
+
+  <div class="col-auto">
+    <q-btn 
+      rounded
+      label="Motor"
+      :color="activeSection === 'motor' ? 'purple' : 'primary'"
+      :unelevated="activeSection === 'motor'"
+      :flat="activeSection !== 'motor'"
+      :outline="activeSection !== 'motor'"
+      @click="mostrarSolo('motor')" 
+    />
+  </div>
+
+  <div class="col-auto">
+    <q-btn 
+      rounded
+      label="Plaquetas"
+      :color="activeSection === 'plaquetas' ? 'purple' : 'primary'"
+      :unelevated="activeSection === 'plaquetas'"
+      :flat="activeSection !== 'plaquetas'"
+      :outline="activeSection !== 'plaquetas'"
+      @click="mostrarSolo('plaquetas')" 
+    />
+  </div>
+
+  <div class="col-auto">
+    <q-btn 
+      rounded
+      label="Placa"
+      :color="activeSection === 'placa' ? 'purple' : 'primary'"
+      :unelevated="activeSection === 'placa'"
+      :flat="activeSection !== 'placa'"
+      :outline="activeSection !== 'placa'"
+      @click="mostrarSolo('placa')" 
+    />
+  </div>
+
+  <div class="col-auto">
+    <q-btn 
+      rounded
+      label="Vehículo"
+      :color="activeSection === 'completo' ? 'purple' : 'primary'"
+      :unelevated="activeSection === 'completo'"
+      :flat="activeSection !== 'completo'"
+      :outline="activeSection !== 'completo'"
+      @click="mostrarSolo('completo')" 
+    />
+  </div>
+</div>
+
 
         <q-separator />
 
@@ -194,7 +248,7 @@ export default {
       mostrarMultimedia: false,
       components_1: false,
       components_2: false,
-      activeSection: "placa", // sección activa por defecto
+      activeSection: "cabina", // sección activa por defecto ahora Cabina
       headers_vehiculo: [
         { label: "#REGISTRO", field: "id_ingreso", name: "id_ingreso", align: "center" },
         { label: "PLACA", field: "placa", name: "placa", align: "center" },
@@ -310,7 +364,7 @@ export default {
       this.numero_registro = selected.id_ingreso || selected.id || "";
       this.components_1 = false;
       this.components_2 = true;
-      this.activeSection = "placa";
+      this.activeSection = "cabina";
       this.mostrarMultimedia = false;
 
       // Traer soportes
@@ -321,22 +375,28 @@ export default {
 
           // notificar si faltan archivos esperados (no intrusivo)
           const missing = [];
-          if (!this.firstMotorFoto) missing.push("foto_motor_desintegrado_1");
-          if (!this.firstMotorVideo) missing.push("video_motor_desintegrado_2");
-          if (!this.firstCabinaFoto) missing.push("foto_cabina_desintegrado_1");
-          if (!this.firstCabinaVideo) missing.push("video_cabina_desintegrado_2");
-          if (!this.firstChasisFoto) missing.push("foto_chasis_desintegrado_1");
-          if (!this.firstChasisVideo) missing.push("video_chasis_desintegrado_2");
-          if (!this.firstPlacaFoto) missing.push("foto_placa_desintegrado_1");
-          if (!this.firstPlacaVideo) missing.push("video_placa_desintegrado_2");
-          if (!this.firstCompletoFoto) missing.push("foto_completo_desintegrado_1");
-          if (!this.firstCompletoVideo) missing.push("video_completo_desintegrado_2");
-          if (!this.firstPlaquetaFoto) missing.push("foto_plaqueta_desintegrado_1");
-          if (!this.firstPlaquetaVideo) missing.push("video_plaquetas_desintegrado_2");
+          // Mensajes solicitados por el usuario (orden: Cabina / Chasis / Motor / Plaquetas / Placa / Vehiculo)
+          if (!this.firstCabinaFoto) missing.push("No se encontro foto cabina desintegrado");
+          if (!this.firstCabinaVideo) missing.push("No se encontro video cabina desintegrado");
+          if (!this.firstChasisFoto) missing.push("No se encontro foto chasis desintegrado");
+          if (!this.firstChasisVideo) missing.push("No se encontro video chasis desintegrado");
+          if (!this.firstMotorFoto) missing.push("No se encontro foto motor desintegrado");
+          if (!this.firstMotorVideo) missing.push("No se encontro video motor desintegrado");
+          if (!this.firstPlaquetaFoto) missing.push("No se encontro foto plaqueta desintegrado");
+          if (!this.firstPlaquetaVideo) missing.push("No se encontro video plaqueta desintegrado");
+          if (!this.firstPlacaFoto) missing.push("No se encontro foto placa desintegrado");
+          if (!this.firstPlacaVideo) missing.push("No se encontro video placa desintegrado");
+          if (!this.firstCompletoFoto) missing.push("No se encontro foto vehiculo desintegrado");
+          if (!this.firstCompletoVideo) missing.push("No se encontro video vehiculo desintegrado");
 
           if (missing.length > 0) {
-            // mostramos alerta no intrusiva con lo que falta
-            Swal.fire({ title: "Existen multimedias faltantes para este vehiculo", icon: "warning", html: `No se encontraron: <b>${missing.join(", ")}</b>` });
+            const htmlList = `<ul style="text-align:left; margin:0; padding-left:18px;">${missing.map(m => `<li>${m}</li>`).join("")}</ul>`;
+            Swal.fire({
+              title: "Existen multimedias faltantes para este vehiculo",
+              icon: "warning",
+              html: htmlList,
+              confirmButtonText: "Cerrar"
+            });
           }
         })
         .catch(err => {
@@ -361,7 +421,7 @@ export default {
       this.components_1 = true;
       this.rutas = [];
       this.mostrarMultimedia = false;
-      this.activeSection = "placa";
+      this.activeSection = "cabina";
       this.placa = "";
       this.numero_registro = "";
     },

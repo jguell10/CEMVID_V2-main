@@ -11,7 +11,7 @@
         :class="$q.dark.isActive ? 'bg-grey-9 text-white' : 'bg-grey-2'"
       >
         <q-item-section>
-          <q-item-label class="text-h6"> GESTION DESINTEGRACION </q-item-label>
+          <q-item-label class="text-h6"> GESTION DE INGRESOS </q-item-label>
         </q-item-section>
       </q-item>
 
@@ -84,9 +84,7 @@
               </template>
             </q-input>
           </div>
-        </div>
-
-        <div class="q-pa-md q-gutter-sm">
+          <div class="q-pa-md q-gutter-sm">
           <q-btn
             round
             color="purple"
@@ -98,6 +96,12 @@
             "
           ></q-btn>
         </div>
+
+
+
+        </div>
+
+        
       </q-card-section>
     </q-card>
     <q-card style="width: 100%" v-show="components_1">
@@ -212,6 +216,20 @@
                 <template v-slot:control>
                   <div class="self-center full-width no-outline" tabindex="0">
                     {{ vin }}
+                  </div>
+                </template>
+              </q-field>
+            </q-card-section>
+
+            <q-card-section>
+              <q-field
+                standout="bg-purple-3 text-white"
+                label="Propietario"
+                stack-label
+              >
+                <template v-slot:control>
+                  <div class="self-center full-width no-outline" tabindex="0">
+                    {{ propietario }}
                   </div>
                 </template>
               </q-field>
@@ -1536,7 +1554,8 @@ export default {
           field: "vin",
           name: "vin",
           align: "center"
-        },         
+        },
+                 
         
         
       ],
@@ -1581,6 +1600,7 @@ export default {
       modelo: "",
       color: "",
       siniestro: "",
+      propietario: "",
       cod_resolucion:0,
       desc_resolucion: "",
     };
@@ -1912,10 +1932,14 @@ export default {
         this.latitud = "";
         this.longitud = "";
         this.numero_documento = "";
+        this.siniestro = "";
+        this.propietario = "";
         this.nombre_funcionario = "";
         this.numero_chasis = "";
         this.numero_motor = "";
         this.tipo_vehiculo = "";
+        this.siniestro = "";
+        this.propietario = "";
         this.marca = "";
         this.modelo = "";
         this.color = "";
@@ -1937,6 +1961,8 @@ export default {
             this.numero_documento = result.data[0].numero_documento;
             this.nombre_funcionario = result.data[0].nombre_funcionario;
             this.numero_chasis = result.data[0].numero_chasis;
+            this.siniestro = result.data[0].siniestro;
+            this.propietario = result.data[0].propietario;
             this.numero_motor = result.data[0].numero_motor;
             this.tipo_vehiculo = result.data[0].tipo_vehiculo;
             this.cod_resolucion = result.data[0].resolucion;
@@ -1982,6 +2008,8 @@ export default {
       this.numero_chasis = row.numero_chasis;
       this.numero_motor = row.numero_motor;
       this.tipo_vehiculo = row.tipo_vehiculo;
+      this.propietario = row.propietario;
+      this.siniestro = row.siniestro;
       this.cod_resolucion = row.cod_resolucion;
       this.desc_resolucion = row.desc_resolucion;
       this.marca = row.marca;

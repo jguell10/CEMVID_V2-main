@@ -16,14 +16,16 @@
           class="q-mr-sm"
         />
         <q-btn
-        color="purple"
-          
-          
+          color="purple"
           dense
           icon="logout"
+          label="Salir / Cerrar Sesión"
           @click="logoutNotify"
           to="/"
+          class="q-ml-sm"
+          unelevated
         />
+
        
       </q-toolbar>
     </q-header>
@@ -53,21 +55,7 @@
           
           <q-scroll-area style="height:100%;">
             <q-list padding>
-              <q-item
-                active-class="tab-active"                
-                to="/dashboard"
-                class="q-ma-sm navigation-item"
-                clickable
-                v-ripple
-              >
-                <q-item-section avatar>
-                  <q-icon name="dashboard" />
-                </q-item-section>
-
-                <q-item-section>
-                  Dashboard
-                </q-item-section>
-              </q-item>
+              
 
               <q-item
                 active-class="tab-active"
@@ -119,42 +107,37 @@
                 </q-item-section>
               </q-item>
 
-              
-              
-
               <q-item
-                active-class="tab-active"
-                to="/listar-desintegraciones"
+              active-class="tab-active"
+               to="/marca"
                 class="q-ma-sm navigation-item"
                 clickable
                 v-ripple
               >
                 <q-item-section avatar>
-                  <q-icon name="car_crash" />
+                  <q-icon name="admin_panel_settings" />
                 </q-item-section>
 
                 <q-item-section>
-                  Listar Desintegraciones
+                  Gestion Ambiental
                 </q-item-section>
               </q-item>
 
               <q-item
-                active-class="tab-active"
-                to="/listar-sedes"
+              active-class="tab-active"
+               to="/dashboard"
                 class="q-ma-sm navigation-item"
                 clickable
                 v-ripple
               >
                 <q-item-section avatar>
-                  <q-icon name="garage" />
+                  <q-icon name="admin_panel_settings" />
                 </q-item-section>
 
                 <q-item-section>
-                  Listar Sedes
+                  Reportes y consultas
                 </q-item-section>
               </q-item>
-
-
 
               <q-item
               active-class="tab-active"
