@@ -57,21 +57,7 @@
             <q-list padding>
               
 
-              <q-item
-                active-class="tab-active"
-                @click="f_mensaje_test()"
-                class="q-ma-sm navigation-item"
-                clickable
-                v-ripple
-              >
-                <q-item-section avatar>
-                  <q-icon name="save" />
-                </q-item-section>
-
-                <q-item-section>
-                  Registro
-                </q-item-section>
-              </q-item>
+              
 
 
               <q-item
@@ -108,18 +94,18 @@
               </q-item>
 
               <q-item
-              active-class="tab-active"
-               to="/marca"
+                active-class="tab-active"
+                @click="f_mensaje_test()"
                 class="q-ma-sm navigation-item"
                 clickable
                 v-ripple
               >
                 <q-item-section avatar>
-                  <q-icon name="admin_panel_settings" />
+                  <q-icon name="save" />
                 </q-item-section>
 
                 <q-item-section>
-                  Gestion Ambiental
+                  Gestion ambiental
                 </q-item-section>
               </q-item>
 
