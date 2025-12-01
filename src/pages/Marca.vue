@@ -137,7 +137,7 @@
                 <q-input standout="bg-purple-3 text-white" label="cargo" stack-label v-model="cargo" />
               </q-card-section>
               <q-card-section>
-                <q-input standout="bg-purple-3 text-white" label="rol" stack-label v-model="idrol" />
+                <q-input standout="bg-purple-3 text-white" label="rol" stack-label v-model="id_rol" />
               </q-card-section>
               <q-card-section>
                 <q-select
@@ -916,7 +916,7 @@ export default {
       ciudad: null,
       departamentosColombia,
       ciudadesFiltradas: [],
-      
+      sedes:[],
       tieneISO: false,
       color:'',    
 
@@ -965,6 +965,13 @@ export default {
       radio_metros: '',
       fecha_vencimiento_poliza: '',
       fecha_vencimiento_salud: '',
+
+
+      //variables contrato
+      contratante: '',
+      fecha_contrato: '',
+      n_vehiculos: '',
+
       
 
       // ---- variables de módulos ----
