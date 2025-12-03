@@ -1679,7 +1679,7 @@ export default {
         },     
         { label: "USUARIO",
           field: "usuario",
-          name: "usuario",
+          name:  "usuario",
           align: "center"
         },
         
