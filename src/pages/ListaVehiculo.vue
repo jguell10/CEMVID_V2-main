@@ -4,6 +4,119 @@
   </div>
   <div class="q-pa-md q-gutter-sm">
     <q-card class="my-card text-black" style="width: 100%" v-show="components">
+  <q-item
+    clickable
+    v-ripple
+    class="rounded-borders"
+    :class="$q.dark.isActive ? 'bg-grey-9 text-white' : 'bg-grey-2'"
+  >
+    <q-item-section>
+      <q-item-label class="text-h6"> GESTION DE INGRESOS </q-item-label>
+    </q-item-section>
+  </q-item>
+
+  <!-- Fila que contiene las 2 secciones lado a lado -->
+  <div class="row q-col-gutter-md q-pa-md">
+    <!-- Sección 1: texto + toggle -->
+    
+    <q-card-section
+      class="col-6 col-md-3 "
+      :class="$q.dark.isActive ? 'text-white' : 'text-black'"      
+    >
+
+      <q-toggle
+      
+        v-model="value"
+        color="purple"
+        text-color="black"
+        icon="check"
+        
+        :label="value ? 'Búsqueda por Placa' : 'Búsqueda por Fecha'"
+        :left-label="!value"
+        @click="fonctionTest()"
+      />
+    </q-card-section>
+
+    <!-- Sección 2: filtros de placa / fechas -->
+    <q-card-section class="col-12 col-md-9">
+      <div class="row q-col-gutter-md">
+        <div class="q-pa-md col-12 col-sm-3" v-show="components_7">
+          <q-input
+          dense filled
+            standout="bg-purple-3 text-white"
+            v-model="placa"
+            label="PLACA"
+          />
+        </div>
+
+        <div class="q-pa-md col-12 col-sm-4" v-show="components_8">
+          <q-input dense filled v-model="date" mask="date" :rules="['date']">
+            <template v-slot:append>
+              <q-icon name="event" class="cursor-pointer">
+                <q-popup-proxy
+                  cover
+                  transition-show="scale"
+                  transition-hide="scale"
+                >
+                  <q-date v-model="date" color="purple">
+                    <div class="row items-center justify-end">
+                      <q-btn
+                        v-close-popup
+                        label="Close"
+                        color="purple"
+                        flat
+                      />
+                    </div>
+                  </q-date>
+                </q-popup-proxy>
+              </q-icon>
+            </template>
+          </q-input>
+        </div>
+
+        <div class="q-pa-md col-12 col-sm-4" v-show="components_8">
+          <q-input dense filled v-model="date1" mask="date" :rules="['date']">
+            <template v-slot:append>
+              <q-icon name="event" class="cursor-pointer">
+                <q-popup-proxy
+                  cover
+                  transition-show="scale"
+                  transition-hide="scale"
+                >
+                  <q-date v-model="date1" color="purple">
+                    <div class="row items-center justify-end">
+                      <q-btn
+                        v-close-popup
+                        label="Close"
+                        color="purple"
+                        flat
+                      />
+                    </div>
+                  </q-date>
+                </q-popup-proxy>
+              </q-icon>
+            </template>
+          </q-input>
+        </div>
+
+        <div class="q-pa-md q-gutter-sm">
+          <q-btn
+            round
+            color="purple"
+            glossy
+            icon="search"
+            @click="
+              ListaDesintegracion();
+              components_1 = true;
+            "
+          />
+        </div>
+      </div>
+    </q-card-section>
+  </div>
+</q-card>
+
+    <!-- <q-card  class="my-card text-black" style="width: 100%" v-show="components">
       <q-item
         clickable
         v-ripple
@@ -13,9 +126,12 @@
         <q-item-section>
           <q-item-label class="text-h6"> GESTION DE INGRESOS </q-item-label>
         </q-item-section>
+        
       </q-item>
+      
 
       <q-card-section :class="$q.dark.isActive ? 'text-white' : 'text-black'">
+        
         Busqueda Por Fecha
         <q-toggle
           v-model="value"
@@ -26,6 +142,7 @@
           @click="fonctionTest()"
         ></q-toggle>
       </q-card-section>
+      
       <q-card-section>
         <div class="row q-col-gutter-md">
           <div class="col-12 col-sm-3" v-show="components_7">
@@ -85,16 +202,16 @@
             </q-input>
           </div>
           <div class="q-pa-md q-gutter-sm">
-          <q-btn
-            round
-            color="purple"
-            glossy
-            icon="search"
-            @click="
-              ListaDesintegracion();
-              components_1 = true;
-            "
-          ></q-btn>
+            <q-btn
+              round
+              color="purple"
+              glossy
+              icon="search"
+              @click="
+                ListaDesintegracion();
+                components_1 = true;
+                "
+            ></q-btn>
         </div>
 
 
@@ -103,16 +220,26 @@
 
         
       </q-card-section>
-    </q-card>
+    </q-card> -->
     <q-card style="width: 100%" v-show="components_1">
       <div class="q-pa-md">
         <q-table
+        v-if="vehiculo.length"
           :class="$q.dark.isActive ? 'bg-grey-9 text-white' : 'bg-grey-2'"
           :rows="vehiculo"
           :columns="headers_vehiculo"
           row-key="name"
           @row-click="DetalleDesintegracion"
+          rows-per-page-label="Registros por página"
+          rows-per-page="15"
+          
         ></q-table>
+        <q-banner
+  v-else-if="sinResultados"
+  class="q-mt-md bg-grey-2 text-grey-8"
+>
+  No existen registros para los filtros seleccionados.
+</q-banner>
       </div>
     </q-card>
 
@@ -1522,6 +1649,7 @@ export default {
         },
       },
       vehiculo: [],
+    sinResultados: false,
       headers_vehiculo: [
         {
           label: "FECHA_INGRESO",
@@ -1543,25 +1671,25 @@ export default {
           field: "numero_chasis",
           name: "numero_chasis",
           align: "center" 
-        },       
+        },
+        { label: "SEDE",
+          field: "sedes",
+          name: "sedes",
+          align: "center"
+        },     
+        { label: "USUARIO",
+          field: "usuario",
+          name: "usuario",
+          align: "center"
+        },
         
-        { label: "PLACA",
-          field: "placa",
-          name: "placa",
-          align: "center"
-        },
-        { label: "VIN",
-          field: "vin",
-          name: "vin",
-          align: "center"
-        },
                  
         
         
       ],
       rutas: [],
       components: true,
-      components_1: false,
+      components_1: true,
       components_2: false,
       components_3: false,
       components_4: false,
@@ -1624,6 +1752,7 @@ export default {
 
   created() {
     this.username = localStorage.getItem("nombre");
+    this.ListarIngresosTodos();
     // this.username='yordis';
   },
   methods: {
@@ -1927,7 +2056,30 @@ export default {
       // this.mostrarMultimedia = true
     },
 
+    ListarIngresosTodos() {
+      const datos = { fecha_inicio: "", fecha_fin: "" };
+      axios.post("https://cemvid.ibingcode.com/public/listarTodosIngresos2", datos)
+        .then(res => {
+          this.vehiculo = Array.isArray(res.data) ? res.data : [];
+          if (this.vehiculo.length > 0) {
+            this.components_1 = true;
+            this.components_2 = false;
+          } else {
+            this.components_1 = false;
+            Swal.fire({ title: "Info", text: "No se encontraron ingresos", icon: "info", timer: 2000 });
+          }
+        })
+        .catch(err => {
+          console.error("Error listarTodosIngresos:", err);
+          Swal.fire({ title: "Error", text: "Error al obtener ingresos", icon: "error" });
+          this.vehiculo = [];
+          this.components_1 = false;
+        });
+    },
+
     ListaDesintegracion() {
+
+      this.sinResultados = false;
       if (this.opcion == 1) {
         this.latitud = "";
         this.longitud = "";
@@ -1953,6 +2105,19 @@ export default {
         axios
           .post("https://cemvid.ibingcode.com/public/consultarplacas", datos)
           .then((result) => {
+                    const data = Array.isArray(result.data) ? result.data : [];
+
+        if (!data.length) {
+          // no hay registros
+          this.vehiculo = [];
+          this.mostrarMultimedia = false;
+          this.sinResultados = true;
+          return;
+        }
+
+
+
+
             console.log((this.vehiculo = result.data));
             console.log(this.cod_resolucion = result.data[0].resolucion);
             console.log(this.desc_resolucion = result.data[0].nombre_resolucion);
@@ -1970,7 +2135,7 @@ export default {
             this.marca = result.data[0].marca;
             this.modelo = result.data[0].modelo;
             this.color = result.data[0].color;
-            this.vin = row.vin;
+            this.vin = result.data[0].vin;
             this.mostrarMultimedia = false
           });
           

@@ -117,7 +117,7 @@
                 v-ripple
               >
                 <q-item-section avatar>
-                  <q-icon name="admin_panel_settings" />
+                  <q-icon name="bar_chart" />
                 </q-item-section>
 
                 <q-item-section>
@@ -149,7 +149,7 @@
                 v-ripple
               >
                 <q-item-section avatar>
-                  <q-icon name="admin_panel_settings" />
+                  <q-icon name="settings" />
                 </q-item-section>
 
                 <q-item-section>
