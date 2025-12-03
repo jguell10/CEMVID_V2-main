@@ -139,7 +139,23 @@
                 <q-item-section>
                   Administracion
                 </q-item-section>
-              </q-item>     
+              </q-item> 
+
+              <q-item
+              active-class="tab-active"
+               to="/Gestion_operativa"
+                class="q-ma-sm navigation-item"
+                clickable
+                v-ripple
+              >
+                <q-item-section avatar>
+                  <q-icon name="admin_panel_settings" />
+                </q-item-section>
+
+                <q-item-section>
+                  Gestion Operativa
+                </q-item-section>
+              </q-item>                  
 
             </q-list>
           </q-scroll-area>

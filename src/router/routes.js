@@ -20,6 +20,7 @@ const routes = [
       { path: 'marca', component: () => import('pages/Marca.vue'),meta:{requiresAuth:true} },
       { path: 'listar-desintegraciones', component: () => import('pages/ListaDesintegraciones.vue'), meta:{ requiresAuth:true } },
       { path: 'listar-sedes', component: () => import('pages/ListaSedes.vue'), meta:{ requiresAuth:true } },
+      { path: 'Gestion_operativa', component: () => import('pages/Gestion_operativa.vue'), meta:{ requiresAuth:true } },
       
       
     ]
