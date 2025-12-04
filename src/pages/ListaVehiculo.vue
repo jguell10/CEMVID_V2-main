@@ -243,16 +243,14 @@
       </div>
     </q-card>
 
-    <q-card style="width: 100%" v-show="components_2">
+  <q-card style="width: 100%" v-show="components_2">
   <q-item
     clickable
     v-ripple
     class="rounded-borders"
     :class="$q.dark.isActive ? 'bg-grey-9 text-white' : 'bg-grey-2'"
   >
-    <q-item-section>
-      <q-item-label class="text-h6"> MODULO 2 </q-item-label>
-    </q-item-section>
+
 
     <q-btn
       color="purple"
@@ -262,12 +260,28 @@
         components_2 = false;
         components = true;
         paso = 1;
+        ListarIngresosTodos();
+      
       "
     />
   </q-item>
 
   <!-- PASO 1: DATOS DEL VEHÍCULO -->
   <q-card-section v-if="paso === 1">
+
+
+  <q-item
+    clickable
+    v-ripple
+    class="rounded-borders"
+    :class="$q.dark.isActive ? 'bg-grey-9 text-white' : 'bg-grey-2'"
+  >
+    <q-item-section>
+      <q-item-label class="text-h6"> INFORMACION DE VEHICULO </q-item-label>
+    </q-item-section>
+
+  </q-item>
+
     <div class="q-pa-md example-row-mix-and-match">
       <div class="row" style="text-align: center">
         <div class="col-4">
@@ -435,6 +449,39 @@
                 </template>
               </q-field>
             </q-card-section>
+               <q-card-section>
+              <q-select
+                standout="bg-purple-3 text-white"
+                label="Siniestro"
+                stack-label
+                v-model="siniestro"
+                :options="[
+                  { label: 'Sí', value: 'SI' },
+                  { label: 'No', value: 'NO' }
+                ]"
+                emit-value
+                map-options
+              />
+            </q-card-section>
+                           <q-card-section>
+              <q-select
+                standout="bg-purple-3 text-white"
+                label="Tipo postulacion"
+                stack-label
+                v-model="tipo_postulacion"
+                :options="[
+                  { label: 'Resolucion 646', value: 1 },
+                  { label: 'Resolucion 7036 Reposición', value: 2 },
+                  { label: 'Resolucion 7036 Reposición y reconocimiento económico', value: 3 },
+                  { label: 'Resolucion 7036 Reconocimiento económico', value: 4 },
+                  { label: 'Resolucion 7036 Accidente o evento fortuito', value: 5 },
+                  { label: 'Ley 1730 de 2014', value: 6 },
+                  { label: 'Normalizacion', value: 7 }
+                ]"
+                emit-value
+                map-options
+              />
+            </q-card-section>
 
           </q-card>
         </div>
@@ -461,7 +508,7 @@
                 standout="bg-purple-3 text-white"
                 label="Tipo de documento"
                 stack-label
-                v-model="tipo_servicio"
+                v-model="tipo_documento"
                 :options="[
                   'Cédula de ciudadanía',
                   'Cédula de extranjería',
@@ -472,7 +519,18 @@
               />
             </q-card-section>
 
+
+
             <q-card-section>
+              <q-input
+                standout="bg-purple-3 text-white"
+                label="Número de documento"
+                stack-label
+                v-model="numero_documento_"
+              />
+            </q-card-section>
+
+                        <q-card-section>
               <q-select
                 standout="bg-purple-3 text-white"
                 label="Tipo de servicio"
@@ -485,15 +543,6 @@
                   'ESPECIAL',
                   'DIPLOMÁTICO'
                 ]"
-              />
-            </q-card-section>
-
-            <q-card-section>
-              <q-input
-                standout="bg-purple-3 text-white"
-                label="Número de documento"
-                stack-label
-                v-model="numero_documento_"
               />
             </q-card-section>
 
@@ -515,20 +564,7 @@
               />
             </q-card-section>            
 
-            <q-card-section>
-              <q-select
-                standout="bg-purple-3 text-white"
-                label="Siniestro"
-                stack-label
-                v-model="siniestro"
-                :options="[
-                  { label: 'Sí', value: 'SI' },
-                  { label: 'No', value: 'NO' }
-                ]"
-                emit-value
-                map-options
-              />
-            </q-card-section>
+         
 
             <!--
              <q-btn
@@ -584,6 +620,17 @@
 
   <!-- PASO 2: MULTIMEDIA -->
   <q-card-section v-else-if="paso === 2">
+      <q-item
+    clickable
+    v-ripple
+    class="rounded-borders"
+    :class="$q.dark.isActive ? 'bg-grey-9 text-white' : 'bg-grey-2'"
+  >
+    <q-item-section>
+      <q-item-label class="text-h6"> EVIDENCIA MULTIMEDIA </q-item-label>
+    </q-item-section>
+
+  </q-item>
     <div class="q-pa-md">
       <div class="q-col-gutter-md row items-start">
         <div
@@ -596,19 +643,12 @@
             <q-img
               :src="'https://soportescemvid.ibingcode.com/' + ruta.ruta"
               :ratio="16 / 9"
-              style="border: 3px solid purple; border-radius: 10px"
+              style="border: 3px solid purple;background-color: purple; border-radius: 10px;"
             />
 
             <!-- Nombre del archivo -->
             <q-item-label style="text-align: center; font-weight: 600">
-              <q-chip dense>
-                <q-avatar
-                  icon="bookmark"
-                  class="glossy"
-                  style="background-color: #f76ff7"
-                  text-color="white"
-                />
-              </q-chip>
+
               {{ ruta.ruta.split('/').pop().split('.')[0] }}
             </q-item-label>
 
@@ -624,6 +664,19 @@
                 Archivo verificado
               </q-chip>
             </div>
+
+            
+               <!-- CHECKBOX VALIDAR -->
+      <div class="q-mt-xs flex flex-center">
+        <q-checkbox
+          v-model="ruta.validado"
+          color="green-6"
+          dense
+          :disable="ruta.validado"              
+          label="Marcar como verificado"
+          @update:model-value="f_mensaje_test()"
+        />
+      </div>
           </div>
 
           <!-- VIDEO -->
@@ -631,21 +684,15 @@
             <q-video
               :src="'https://soportescemvid.ibingcode.com/' + ruta.ruta"
               :ratio="16 / 9"
-              style="border: 3px solid purple; border-radius: 10px"
+              style="border: 3px solid purple;background-color: purple; border-radius: 10px;"
             />
 
             <!-- Nombre del archivo -->
             <q-item-label style="text-align: center; font-weight: 600">
-              <q-chip dense>
-                <q-avatar
-                  icon="bookmark"
-                  class="glossy"
-                  style="background-color: #f76ff7"
-                  text-color="white"
-                />
-              </q-chip>
+
               {{ ruta.ruta.split('/').pop().split('.')[0] }}
             </q-item-label>
+
 
             <!-- CHULITO VERDE -->
             <div style="text-align: center; margin-top: 4px;">
@@ -659,6 +706,19 @@
                 Archivo verificado
               </q-chip>
             </div>
+
+            
+               <!-- CHECKBOX VALIDAR -->
+      <div class="q-mt-xs flex flex-center">
+        <q-checkbox
+          v-model="ruta.validado"
+          color="green-6"
+          dense
+          :disable="ruta.validado"              
+          label="Marcar como verificado"
+          @update:model-value="f_mensaje_test()"
+        />
+      </div>
           </div>
         </div>
       </div>
@@ -685,6 +745,17 @@
 
         <!-- PASO 3: BOTONERA FINAL -->
       <q-card-section v-if="paso === 3">
+              <q-item
+    clickable
+    v-ripple
+    class="rounded-borders"
+    :class="$q.dark.isActive ? 'bg-grey-9 text-white' : 'bg-grey-2'"
+  >
+    <q-item-section>
+      <q-item-label class="text-h6"> DOCUMENTACION Y ACTA </q-item-label>
+    </q-item-section>
+
+  </q-item>
 
         <div class="q-pa-md example-row-mix-and-match">
         <div class="row" style="text-align: center;">
@@ -1860,12 +1931,12 @@ export default {
     guardarDatos() {
     console.log(this.campo1, this.campo2, this.campo3);
     this.abrirVentana = false;
-  },
+     },
 
 
-    async f_generardocumento () {
-  // Carga dinámica de jsPDF
-  const { jsPDF } = await import("jspdf");
+     async f_generardocumento () {
+     // Carga dinámica de jsPDF
+     const { jsPDF } = await import("jspdf");
 
   
 
@@ -2164,6 +2235,7 @@ export default {
           if (this.vehiculo.length > 0) {
             this.components_1 = true;
             this.components_2 = false;
+            console.log(this.vehiculo);
           } else {
             this.components_1 = false;
             Swal.fire({ title: "Info", text: "No se encontraron ingresos", icon: "info", timer: 2000 });
@@ -2895,6 +2967,50 @@ export default {
           }
         });
     },
+
+    methods: {
+  // ...otros métodos...
+
+  async onValidarSoporte (ruta) {
+    // Si ya estaba validado en BD, no hacemos nada
+    if (ruta.soporte_valido == 1) {
+      return
+    }
+
+    try {
+      const payload = {
+        id_soporte: ruta.id_soporte,
+        soporte_valido: 1,
+        usuario_validacion: this.usuarioActual
+      }
+
+      const resp = await axios.post(
+        'https://cemvid.ibingcode.com/public/validar_soporte',
+        payload
+      )
+
+      if (resp.data && resp.data.ok) {
+        // Actualizamos flags locales
+        ruta.soporte_valido = 1
+        ruta.validado = true
+        this.$q.notify({
+          type: 'positive',
+          message: 'Soporte validado correctamente'
+        })
+      } else {
+        throw new Error(resp.data?.msg || 'Error al actualizar')
+      }
+    } catch (err) {
+      // Revertimos el check si falla
+      ruta.validado = false
+      this.$q.notify({
+        type: 'negative',
+        message: 'No se pudo guardar la validación: ' + err.message
+      })
+    }
+  }
+}
+
   },
 };
 </script>
