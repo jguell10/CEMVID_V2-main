@@ -278,6 +278,8 @@
               </q-btn>
             </q-card-section>
 
+            <!--
+
             <q-card-section>
               <q-field
                 standout="bg-purple-3 text-white"
@@ -291,6 +293,8 @@
                 </template>
               </q-field>
             </q-card-section>
+
+            -->
 
             <q-card-section>
               <q-field
@@ -351,6 +355,76 @@
             <q-card-section>
               <q-field
                 standout="bg-purple-3 text-white"
+                label="tipo vehiculo"
+                stack-label
+              >
+                <template v-slot:control>
+                  <div class="self-center full-width no-outline" tabindex="0">
+                    {{ tipo_vehiculo }}
+                  </div>
+                </template>
+              </q-field>
+            </q-card-section>
+
+            <q-card-section>
+              <q-field
+                standout="bg-purple-3 text-white"
+                label="Marca"
+                stack-label
+              >
+                <template v-slot:control>
+                  <div class="self-center full-width no-outline" tabindex="0">
+                    {{ marca }}
+                  </div>
+                </template>
+              </q-field>
+            </q-card-section>
+
+            <q-card-section>
+              <q-field
+                standout="bg-purple-3 text-white"
+                label="Modelo"
+                stack-label
+              >
+                <template v-slot:control>
+                  <div class="self-center full-width no-outline" tabindex="0">
+                    {{ modelo }}
+                  </div>
+                </template>
+              </q-field>
+            </q-card-section>
+
+            <q-card-section>
+              <q-field
+                standout="bg-purple-3 text-white"
+                label="Color"
+                stack-label
+              >
+                <template v-slot:control>
+                  <div class="self-center full-width no-outline" tabindex="0">
+                    {{ color }}
+                  </div>
+                </template>
+              </q-field>
+            </q-card-section>
+
+            <q-card-section>
+              <q-field
+                standout="bg-purple-3 text-white"
+                label="Peso"
+                stack-label
+              >
+                <template v-slot:control>
+                  <div class="self-center full-width no-outline" tabindex="0">
+                    {{ peso }}
+                  </div>
+                </template>
+              </q-field>
+            </q-card-section>
+
+            <q-card-section>
+              <q-field
+                standout="bg-purple-3 text-white"
                 label="Propietario"
                 stack-label
               >
@@ -380,7 +454,23 @@
               <q-btn target="_blank" glossy style="background-color: #f76ff7">
                 {{ latitud }} - {{ longitud }}
               </q-btn>
-            </q-card-section>          
+            </q-card-section> 
+            
+            <q-card-section>
+              <q-select
+                standout="bg-purple-3 text-white"
+                label="Tipo de documento"
+                stack-label
+                v-model="tipo_servicio"
+                :options="[
+                  'Cédula de ciudadanía',
+                  'Cédula de extranjería',
+                  'Permiso por Protección Temporal',
+                  'PasaportePermiso especial de permanencia',
+                  'Permiso de ingreso y permanencia'
+                ]"
+              />
+            </q-card-section>
 
             <q-card-section>
               <q-select
@@ -395,6 +485,15 @@
                   'ESPECIAL',
                   'DIPLOMÁTICO'
                 ]"
+              />
+            </q-card-section>
+
+            <q-card-section>
+              <q-input
+                standout="bg-purple-3 text-white"
+                label="Número de documento"
+                stack-label
+                v-model="numero_documento_"
               />
             </q-card-section>
 
@@ -1726,6 +1825,7 @@ export default {
       tipo_vehiculo: "",
       marca: "",
       modelo: "",
+      peso: "",
       color: "",
       siniestro: "",
       propietario: "",
@@ -2093,6 +2193,7 @@ export default {
         this.siniestro = "";
         this.propietario = "";
         this.marca = "";
+        this.peso = "";
         this.modelo = "";
         this.color = "";
 
@@ -2136,6 +2237,7 @@ export default {
             this.modelo = result.data[0].modelo;
             this.color = result.data[0].color;
             this.vin = result.data[0].vin;
+            this.peso = result.data[0].peso;
             this.mostrarMultimedia = false
           });
           
@@ -2181,6 +2283,7 @@ export default {
       this.modelo = row.modelo;
       this.color = row.color;
       this.vin = row.vin;
+      this.peso = row.peso;
       
 
       this.components = false;
