@@ -481,7 +481,7 @@
     <q-card style="width: 100%;" v-show="components_5">
       <q-item clickable v-ripple class="rounded-borders" :class="$q.dark.isActive ? 'bg-grey-9 text-white' : 'bg-grey-2'">
         <q-item-section>
-          <q-item-label class="text-h6">SEDE</q-item-label>
+          <q-item-label class="text-h6">PRECIO</q-item-label>
         </q-item-section>
       </q-item>
 
