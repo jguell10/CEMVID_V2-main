@@ -1,61 +1,21 @@
 <template>
   <div class="q-pa-md">
-     <div class="q-gutter-y-md"></div>
+    <div class="q-gutter-y-md"></div>
   </div>
   <div class="q-pa-md q-gutter-sm">
     <q-card class="my-card text-black" style="width: 100%" v-show="components">
-   <q-item
-    clickable
-    v-ripple
-    class="rounded-borders"
-    :class="$q.dark.isActive ? 'bg-grey-9 text-white' : 'bg-grey-2'"
-   >
-    <q-item-section>
+      <q-item
+        clickable
+        v-ripple
+        class="rounded-borders"
+        :class="$q.dark.isActive ? 'bg-grey-9 text-white' : 'bg-grey-2'"
+       >
+      <q-item-section>
       <q-item-label class="text-h6"> GESTION DE INGRESOS </q-item-label>
-    </q-item-section>
-   </q-item>
-  <div>
-    <!-- CONTROLES Y LISTADO -->
-    <div class="q-pa-md">
-      <div class="q-gutter-y-md"></div>
-    </div>
-
-    <div class="q-pa-md q-gutter-sm">
-      <q-card class="my-card text-black" style="width: 100%" v-show="components">
-        <q-item
-          clickable
-          v-ripple
-          class="rounded-borders"
-          :class="$q.dark.isActive ? 'bg-grey-9 text-white' : 'bg-grey-2'"
-        >
-          <q-item-section>
-            <q-item-label class="text-h6"> GESTION DE INGRESOS </q-item-label>
-          </q-item-section>
-        </q-item>
-
-   <!-- Fila que contiene las 2 secciones lado a lado -->
-   <div class="row q-col-gutter-md q-pa-md">
-    <!-- Sección 1: texto + toggle -->
-    
-    <q-card-section
-      class="col-6 col-md-3 "
-      :class="$q.dark.isActive ? 'text-white' : 'text-black'"      
-    >
-
-      <q-toggle
-      
-        v-model="value"
-        color="purple"
-        text-color="black"
-        icon="check"
-        
-        :label="value ? 'Búsqueda por Placa' : 'Búsqueda por Fecha'"
-        :left-label="!value"
-        @click="fonctionTest()"
-      />
-    </q-card-section>
-        <!-- Fila que contiene las 2 secciones lado a lado -->
-        <div class="row q-col-gutter-md q-pa-md">
+      </q-item-section>
+      </q-item>
+          <!-- Fila que contiene las 2 secciones lado a lado -->
+          <div class="row q-col-gutter-md q-pa-md">
           <!-- Sección 1: texto + toggle -->
           <q-card-section
             class="col-6 col-md-3 "
@@ -124,6 +84,7 @@
           </q-card-section>
         </div>
       </q-card>
+
 
       <!-- TABLA DE RESULTADOS -->
       <q-card style="width: 100%" v-show="components_1">
@@ -781,7 +742,7 @@
         -->
       </q-card>
     </div>
-  </div>
+
 </template>
 
 <script>
@@ -914,6 +875,7 @@ export default {
       desc_resolucion: "",
       id_desintegradora: null,
       numero_documento_: "",
+      vin:"",
     };
   },
 
