@@ -30,81 +30,64 @@
       </q-item>
 
       <q-card-section>
-        <!-- Botones para seleccionar sección (orden: Cabina / Chasis / Motor / Plaquetas / Placa / Vehículo) -->
-        <div class="row q-col-gutter-md q-pa-sm">
-  <div class="col-auto">
-    <q-btn 
-      rounded
-      :label="'Cabina'" 
-      :color="activeSection === 'cabina' ? 'purple' : 'primary'"
-      :unelevated="activeSection === 'cabina'"
-      :flat="activeSection !== 'cabina'"
-      :outline="activeSection !== 'cabina'"
-      @click="mostrarSolo('cabina')" 
-    />
-  </div>
-  
-  <div class="col-auto">
-    <q-btn 
-      rounded
-      label="Chasis"
-      :color="activeSection === 'chasis' ? 'purple' : 'primary'"
-      :unelevated="activeSection === 'chasis'"
-      :flat="activeSection !== 'chasis'"
-      :outline="activeSection !== 'chasis'"
-      @click="mostrarSolo('chasis')" 
-    />
-  </div>
+        <!-- Botones estilo "chevrón" reemplazan a los q-btns -->
+        <div class="q-pa-sm">
+          <div class="steps-container">
+            <div
+              class="step"
+              :class="[ statusClass('cabina'), { active: activeSection === 'cabina' } ]"
+              @click="mostrarSolo('cabina')"
+              title="Cabina"
+            >
+              <span>Cabina</span>
+            </div>
 
-  <div class="col-auto">
-    <q-btn 
-      rounded
-      label="Motor"
-      :color="activeSection === 'motor' ? 'purple' : 'primary'"
-      :unelevated="activeSection === 'motor'"
-      :flat="activeSection !== 'motor'"
-      :outline="activeSection !== 'motor'"
-      @click="mostrarSolo('motor')" 
-    />
-  </div>
+            <div
+              class="step"
+              :class="[ statusClass('chasis'), { active: activeSection === 'chasis' } ]"
+              @click="mostrarSolo('chasis')"
+              title="Chasis"
+            >
+              <span>Chasis</span>
+            </div>
 
-  <div class="col-auto">
-    <q-btn 
-      rounded
-      label="Plaquetas"
-      :color="activeSection === 'plaquetas' ? 'purple' : 'primary'"
-      :unelevated="activeSection === 'plaquetas'"
-      :flat="activeSection !== 'plaquetas'"
-      :outline="activeSection !== 'plaquetas'"
-      @click="mostrarSolo('plaquetas')" 
-    />
-  </div>
+            <div
+              class="step"
+              :class="[ statusClass('motor'), { active: activeSection === 'motor' } ]"
+              @click="mostrarSolo('motor')"
+              title="Motor"
+            >
+              <span>Motor</span>
+            </div>
 
-  <div class="col-auto">
-    <q-btn 
-      rounded
-      label="Placa"
-      :color="activeSection === 'placa' ? 'purple' : 'primary'"
-      :unelevated="activeSection === 'placa'"
-      :flat="activeSection !== 'placa'"
-      :outline="activeSection !== 'placa'"
-      @click="mostrarSolo('placa')" 
-    />
-  </div>
+            <div
+              class="step"
+              :class="[ statusClass('plaquetas'), { active: activeSection === 'plaquetas' } ]"
+              @click="mostrarSolo('plaquetas')"
+              title="Plaquetas"
+            >
+              <span>Plaquetas</span>
+            </div>
 
-  <div class="col-auto">
-    <q-btn 
-      rounded
-      label="Vehículo"
-      :color="activeSection === 'completo' ? 'purple' : 'primary'"
-      :unelevated="activeSection === 'completo'"
-      :flat="activeSection !== 'completo'"
-      :outline="activeSection !== 'completo'"
-      @click="mostrarSolo('completo')" 
-    />
-  </div>
-</div>
+            <div
+              class="step"
+              :class="[ statusClass('placa'), { active: activeSection === 'placa' } ]"
+              @click="mostrarSolo('placa')"
+              title="Placa"
+            >
+              <span>Placa</span>
+            </div>
 
+            <div
+              class="step last"
+              :class="[ statusClass('completo'), { active: activeSection === 'completo' } ]"
+              @click="mostrarSolo('completo')"
+              title="Vehículo"
+            >
+              <span>Vehículo</span>
+            </div>
+          </div>
+        </div>
 
         <q-separator />
 
@@ -248,7 +231,7 @@ export default {
       mostrarMultimedia: false,
       components_1: false,
       components_2: false,
-      activeSection: "cabina", // sección activa por defecto ahora Cabina
+      activeSection: "cabina", // sección activa por defecto
       headers_vehiculo: [
         { label: "#REGISTRO", field: "id_ingreso", name: "id_ingreso", align: "center" },
         { label: "PLACA", field: "placa", name: "placa", align: "center" },
@@ -375,7 +358,6 @@ export default {
 
           // notificar si faltan archivos esperados (no intrusivo)
           const missing = [];
-          // Mensajes solicitados por el usuario (orden: Cabina / Chasis / Motor / Plaquetas / Placa / Vehiculo)
           if (!this.firstCabinaFoto) missing.push("No se encontro foto cabina desintegrado");
           if (!this.firstCabinaVideo) missing.push("No se encontro video cabina desintegrado");
           if (!this.firstChasisFoto) missing.push("No se encontro foto chasis desintegrado");
@@ -430,6 +412,34 @@ export default {
       if (!path) return "";
       const parts = path.split("/");
       return parts[parts.length - 1];
+    },
+
+    // Devuelve 0/1/2: cuantos archivos existen para la sección
+    statusCount(section) {
+      switch (section) {
+        case 'cabina':
+          return (this.firstCabinaFoto ? 1 : 0) + (this.firstCabinaVideo ? 1 : 0);
+        case 'chasis':
+          return (this.firstChasisFoto ? 1 : 0) + (this.firstChasisVideo ? 1 : 0);
+        case 'motor':
+          return (this.firstMotorFoto ? 1 : 0) + (this.firstMotorVideo ? 1 : 0);
+        case 'plaquetas':
+          return (this.firstPlaquetaFoto ? 1 : 0) + (this.firstPlaquetaVideo ? 1 : 0);
+        case 'placa':
+          return (this.firstPlacaFoto ? 1 : 0) + (this.firstPlacaVideo ? 1 : 0);
+        case 'completo':
+          return (this.firstCompletoFoto ? 1 : 0) + (this.firstCompletoVideo ? 1 : 0);
+        default:
+          return 0;
+      }
+    },
+
+    // Devuelve la clase CSS según cuántos archivos existen
+    statusClass(section) {
+      const cnt = this.statusCount(section);
+      if (cnt === 2) return 's-green';
+      if (cnt === 1) return 's-yellow';
+      return 's-red';
     }
   }
 };
@@ -437,4 +447,67 @@ export default {
 
 <style scoped>
 .my-custom-toggle { border: 1px solid #027be3; }
+
+/* Contenedor horizontal de chevrons */
+.steps-container {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+  padding: 6px 4px;
+  overflow-x: auto;
+}
+
+/* Cada chevron */
+.step {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 130px;
+  padding: 10px 26px;
+  font-weight: 600;
+  color: white;
+  border: 3px solid #2f5aa3; /* borde azul como en tu imagen */
+  border-radius: 6px;
+  cursor: pointer;
+  user-select: none;
+  transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+  text-align: center;
+  z-index: 1;
+}
+
+/* Flecha derecha tipo chevron */
+.step::after {
+  content: "";
+  position: absolute;
+  right: -18px;
+  top: -3px;
+  width: 36px;
+  height: calc(100% + 6px);
+  transform: skewX(-30deg);
+  border-right: 3px solid #2f5aa3;
+  z-index: -1;
+}
+
+/* Ocultar flecha del último elemento para que no sobresalga */
+.step.last::after {
+  display: none;
+}
+
+/* Colores por estado */
+.s-green { background: #09a95f; } /* verde */
+.s-yellow { background: #f1c40f; color: #111; } /* amarillo */
+.s-red { background: #e74c3c; } /* rojo */
+
+/* Marca cuando está activo (seleccionado) */
+.step.active {
+  box-shadow: inset 0 0 0 4px rgba(128,0,128,0.18);
+  transform: translateY(-2px);
+}
+
+/* Ajustes responsivos: tamaños más pequeños en pantallas chicas */
+@media (max-width: 720px) {
+  .step { min-width: 100px; padding: 8px 18px; }
+  .step::after { right: -14px; width: 28px; height: calc(100% + 4px); }
+}
 </style>
