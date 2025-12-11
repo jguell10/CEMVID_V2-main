@@ -3,13 +3,33 @@
     <!-- LISTADO -->
     <q-card style="width: 100%" v-show="components_1">
       <div class="q-pa-md">
+        <!-- indicador cuando se están calculando soportes para la lista -->
+        <div v-if="loadingSoportesAll" class="q-mb-sm">
+          <q-banner dense class="bg-grey-2 text-black">Cargando estados de soportes...</q-banner>
+        </div>
+
         <q-table
           :class="$q.dark.isActive ? 'bg-grey-9 text-white' : 'bg-grey-2'"
           :rows="vehiculo"
           :columns="headers_vehiculo"
           row-key="id_ingreso"
           @row-click="DetalleDesintegracion"
-        />
+        >
+          <!-- Slot para renderizar la columna "soportes" con 6 círculos -->
+          <template v-slot:body-cell-soportes="props">
+            <q-td :props="props" valign="middle" class="q-pa-xs">
+              <div class="soportes-dots" role="group" :aria-label="`Soportes ${props.row.placa || props.row.id_ingreso}`">
+                <div
+                  v-for="(label, key) in soporteKeys"
+                  :key="key"
+                  class="dot"
+                  :class="statusClassRow(key, props.row)"
+                  :title="label"
+                ></div>
+              </div>
+            </q-td>
+          </template>
+        </q-table>
       </div>
     </q-card>
 
@@ -232,13 +252,24 @@ export default {
       components_1: false,
       components_2: false,
       activeSection: "cabina", // sección activa por defecto
+      loadingSoportesAll: false,
+      // columnas: reemplacé LONGITUD por SOPORTES
       headers_vehiculo: [
         { label: "#REGISTRO", field: "id_ingreso", name: "id_ingreso", align: "center" },
         { label: "PLACA", field: "placa", name: "placa", align: "center" },
         { label: "FECHA_INGRESO", field: "fecha_ingreso", name: "fecha_ingreso", align: "center" },
-        { label: "LATITUD", field: "latitud", name: "latitud", align: "center" },
-        { label: "LONGITUD", field: "longitud", name: "longitud", align: "center" }
-      ]
+       // { label: "LATITUD", field: "latitud", name: "latitud", align: "center" },
+        { label: "SOPORTES", field: "soportes", name: "soportes", align: "center" } // nueva columna
+      ],
+      // keys y labels para ordenar la representación de los puntos
+      soporteKeys: {
+        cabina: "Cabina",
+        chasis: "Chasis",
+        motor: "Motor",
+        plaquetas: "Plaquetas",
+        placa: "Placa",
+        completo: "Vehículo"
+      }
     };
   },
 
@@ -315,25 +346,102 @@ export default {
   },
 
   methods: {
-    ListaDesintegracion() {
+    // LISTA PRINCIPAL: trae vehiculos y luego calcula el estado de soportes por cada fila
+    async ListaDesintegracion() {
       const datos = { fecha_inicio: "", fecha_fin: "" };
-      axios.post("https://cemvid.ibingcode.com/public/listarTodosIngresos", datos)
-        .then(res => {
-          this.vehiculo = Array.isArray(res.data) ? res.data : [];
-          if (this.vehiculo.length > 0) {
-            this.components_1 = true;
-            this.components_2 = false;
-          } else {
-            this.components_1 = false;
-            Swal.fire({ title: "Info", text: "No se encontraron ingresos", icon: "info", timer: 2000 });
-          }
-        })
-        .catch(err => {
-          console.error("Error listarTodosIngresos:", err);
-          Swal.fire({ title: "Error", text: "Error al obtener ingresos", icon: "error" });
-          this.vehiculo = [];
+      try {
+        const res = await axios.post("https://cemvid.ibingcode.com/public/listarTodosIngresos", datos);
+        this.vehiculo = Array.isArray(res.data) ? res.data : [];
+        if (this.vehiculo.length > 0) {
+          this.components_1 = true;
+          this.components_2 = false;
+          // traer soportes para cada fila y calcular statuses
+          await this.fetchAllSoportesForList();
+        } else {
           this.components_1 = false;
-        });
+          Swal.fire({ title: "Info", text: "No se encontraron ingresos", icon: "info", timer: 2000 });
+        }
+      } catch (err) {
+        console.error("Error listarTodosIngresos:", err);
+        Swal.fire({ title: "Error", text: "Error al obtener ingresos", icon: "error" });
+        this.vehiculo = [];
+        this.components_1 = false;
+      }
+    },
+
+    // obtiene soportes para cada ingreso (paralelo) y adjunta .soportes_status a cada fila
+    async fetchAllSoportesForList() {
+      if (!Array.isArray(this.vehiculo) || this.vehiculo.length === 0) return;
+      this.loadingSoportesAll = true;
+
+      const promises = this.vehiculo.map(async (row) => {
+        const id = row.id_ingreso || row.id || null;
+        if (!id) {
+          // si no tiene id, marcamos todos a 0
+          row.soportes_status = this.emptySoportesStatus();
+          return row;
+        }
+        try {
+          const resp = await axios.post("https://cemvid.ibingcode.com/public/getsoportes", { codigo_ingreso: id });
+          const rutas = Array.isArray(resp.data) ? resp.data : [];
+          row.soportes_status = this.computeSoportesStatusFromRutas(rutas);
+          return row;
+        } catch (err) {
+          console.error(`Error getsoportes para ${id}:`, err);
+          // en caso de error dejamos todos en 0 (rojo)
+          row.soportes_status = this.emptySoportesStatus();
+          return row;
+        }
+      });
+
+      // esperar a que terminen todos
+      await Promise.all(promises);
+      this.loadingSoportesAll = false;
+    },
+
+    // construye status 0/1/2 para cada sección a partir del array de rutas
+    computeSoportesStatusFromRutas(rutas) {
+      const status = {};
+      // helper para contar si existe foto/video según patrones actuales
+      const exists = (pattern) => rutas.some(r => r.ruta && pattern.test(this.stripQuery(r.ruta)));
+
+      status.cabina = (exists(/foto_cabina_desintegrado_1\.(jpg|jpeg|png)$/i) ? 1 : 0) + (exists(/video_cabina_desintegrado_2\.(mp4|mov|avi)$/i) ? 1 : 0);
+      status.chasis = (exists(/foto_chasis_desintegrado_1\.(jpg|jpeg|png)$/i) ? 1 : 0) + (exists(/video_chasis_desintegrado_2\.(mp4|mov|avi)$/i) ? 1 : 0);
+      status.motor  = (exists(/foto_motor_desintegrado_1\.(jpg|jpeg|png)$/i) ? 1 : 0) + (exists(/video_motor_desintegrado_2\.(mp4|mov|avi)$/i) ? 1 : 0);
+      status.plaquetas = (exists(/foto_plaqueta_desintegrado_1\.(jpg|jpeg|png)$/i) ? 1 : 0) + (exists(/video_plaquetas_desintegrado_2\.(mp4|mov|avi)$/i) ? 1 : 0);
+      status.placa = (exists(/foto_placa_desintegrado_1\.(jpg|jpeg|png)$/i) ? 1 : 0) + (exists(/video_placa_desintegrado_2\.(mp4|mov|avi)$/i) ? 1 : 0);
+      status.completo = (exists(/foto_completo_desintegrado_1\.(jpg|jpeg|png)$/i) ? 1 : 0) + (exists(/video_completo_desintegrado_2\.(mp4|mov|avi)$/i) ? 1 : 0);
+
+      // aseguramos que el valor sea 0/1/2
+      Object.keys(status).forEach(k => {
+        if (status[k] > 2) status[k] = 2;
+      });
+
+      return status;
+    },
+
+    // quita querystring de una ruta para que la regex de extensión funcione aun con ?token=...
+    stripQuery(path) {
+      try {
+        // si es url absoluta
+        const url = new URL(path, this.baseUrl);
+        return url.pathname;
+      } catch (err) {
+        // fallback: separar por ?
+        return (path || "").split("?")[0];
+      }
+    },
+
+    // status por defecto todos 0
+    emptySoportesStatus() {
+      return {
+        cabina: 0,
+        chasis: 0,
+        motor: 0,
+        plaquetas: 0,
+        placa: 0,
+        completo: 0
+      };
     },
 
     DetalleDesintegracion(evt, row) {
@@ -350,7 +458,7 @@ export default {
       this.activeSection = "cabina";
       this.mostrarMultimedia = false;
 
-      // Traer soportes
+      // Traer soportes (para detalle usamos el mismo endpoint; esto alimenta this.rutas usados por los computed)
       axios.post("https://cemvid.ibingcode.com/public/getsoportes", { codigo_ingreso: this.numero_registro })
         .then(res => {
           this.rutas = Array.isArray(res.data) ? res.data : [];
@@ -414,7 +522,7 @@ export default {
       return parts[parts.length - 1];
     },
 
-    // Devuelve 0/1/2: cuantos archivos existen para la sección
+    // Devuelve 0/1/2: cuantos archivos existen para la sección (este usa this.rutas cuando estás en detalle)
     statusCount(section) {
       switch (section) {
         case 'cabina':
@@ -434,12 +542,22 @@ export default {
       }
     },
 
-    // Devuelve la clase CSS según cuántos archivos existen
+    // Devuelve la clase CSS según cuántos archivos existen (para la vista detalle)
     statusClass(section) {
       const cnt = this.statusCount(section);
       if (cnt === 2) return 's-green';
       if (cnt === 1) return 's-yellow';
       return 's-red';
+    },
+
+    // Mismo comportamiento pero para una fila específica en la lista (usa row.soportes_status)
+    statusClassRow(section, row) {
+      const status = (row && row.soportes_status && typeof row.soportes_status[section] !== "undefined")
+        ? row.soportes_status[section]
+        : 0;
+      if (status === 2) return 'dot-green';
+      if (status === 1) return 'dot-yellow';
+      return 'dot-red';
     }
   }
 };
@@ -510,4 +628,29 @@ export default {
   .step { min-width: 100px; padding: 8px 18px; }
   .step::after { right: -14px; width: 28px; height: calc(100% + 4px); }
 }
+
+/* ===== estilos para los circulitos de la columna SOPORTES ===== */
+.soportes-dots {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Base del círculo */
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.03) inset;
+}
+
+/* Colores para lista (clases usadas en slot de la tabla) */
+.dot-red { background: #e74c3c; }
+.dot-yellow { background: #f1c40f; }
+.dot-green { background: #09a95f; }
+
+/* Si quieres además que al pasar muestre borde más oscuro */
+.dot:hover { transform: translateY(-2px); transition: transform .12s ease; cursor: default; }
 </style>
